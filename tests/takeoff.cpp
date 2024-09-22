@@ -8,12 +8,18 @@
 int main(){
     std::cout <<"Test executable for takeoff (classes UAV, Aerodynamics, State, StateSpace\n";
 
-    double total_mass = 1;
-    UAV p1(0.5, 9, total_mass, 0.01, 1);
+    double S = 0.5;
+    double AR = 9;
+    double a0 = Aerodynamics::deg2rad(-4);
+    double mass = 4;
+    UAV p1(S, AR, mass, a0, 1);
+    p1.setAoaTakeoff(Aerodynamics::deg2rad(0));
+    Aerodynamics aero(p1);
+
 
     StateHistory history;
     StateSpace sim(history);
-    sim.setParameters(0, 0.1, 20);
+    sim.setParameters(0, 0.1, 100);
     State init_state;
     ControlState control_state;
     EngineMap engine(EngineMap::P12x6);

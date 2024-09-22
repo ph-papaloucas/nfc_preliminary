@@ -22,8 +22,8 @@ std::array<double, 2> Aerodynamics::rotateVector2Bodyframe(std::array<double, 2>
 
 }
 std::array<double,2 > Aerodynamics::rotateVector2Earthframe(std::array<double, 2> vector, double gamma){
-    return {cos(gamma)*vector[0] + sin(gamma)*vector[1],
-            sin(gamma)*vector[0] - cos(gamma)*vector[1]};
+    return {cos(-gamma)*vector[0] - sin(-gamma)*vector[1],
+            sin(-gamma)*vector[0] + cos(-gamma)*vector[1]};
 }
 
 double Aerodynamics::rad2deg(double rad){
@@ -45,6 +45,7 @@ std::array<double, 2> Aerodynamics::getForcesBodyframe(std::array<double, 2> vel
     double lift = qinf*_uav.getSurface()*cl;
     double drag = qinf*_uav.getSurface()*cd;
 
+    std::cout << "drag = " << drag << "  lift = " << lift <<std::endl;
     std::array<double, 2> F = {-drag, lift};
 
 	return F;

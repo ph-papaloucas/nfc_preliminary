@@ -1,18 +1,15 @@
 #include "Control.h"
 
 Control::Control():_max_amps(0), _current_thrust_mode(MAX){};
-Control::Control(EngineMap engine, const UAV& uav, double max_amps):_engine(engine),_aero(uav), _max_amps(max_amps), _current_thrust_mode(MAX){};
+Control::Control(EngineMap engine, const UAV& uav, double max_amps):_engine(engine),_uav(uav), _aero(uav), _max_amps(max_amps), _current_thrust_mode(MAX){};
 
 double Control::_getThrust(std::array<double, 2> velocity_bodyframe){
-    double vel_wind = -velocity_bodyframe[0];
+    double vel_wind = velocity_bodyframe[0];
     double thrust = 0 ;
 
-    std::cout << "====================THRUST FUUNCTIONNNNNNNNNNNNN\n";
-    std::cout << _current_thrust_mode << std::endl;
     switch (_current_thrust_mode){
         case MAX:
             thrust =  _engine.thrustOfWindspeedCurrent(vel_wind, _max_amps);
-            std::cout << "CASE MAX, thrust = " <<  thrust << std::endl;
             break;
         case THRUST_UNDEFINED:
             std::cerr << "Error: Undefined thrust mode!" << std::endl;
@@ -24,9 +21,9 @@ double Control::_getThrust(std::array<double, 2> velocity_bodyframe){
             break;
 
     }
-
-
-
+    if (thrust<0){
+        thrust = 0;
+    }
     return thrust;
 }
 double Control::_getGamma(std::array<double, 2> velocity){
@@ -35,7 +32,7 @@ double Control::_getGamma(std::array<double, 2> velocity){
         case TRIM:
             gamma =  _aero.getGammaForTrim(velocity);
         case TAKEOFF:
-            gamma =  Aerodynamics::deg2rad(10);
+            gamma =  _uav.getAoaTakeoff();
     }
     return gamma;
 }
@@ -50,17 +47,11 @@ void Control::_applyControl(ControlState &control_state, std::array<double,2 > v
 std::array<double, 2> Control::getForces(const State &state, ControlState& control_state){
     std::array<double, 2> velocity = {state.u, state.w};
     _applyControl(control_state, velocity);
-
-
-    std::cout << "thrust = " << control_state.thrust << std::endl;
-    std::array<double,2 > thrust_vector = Aerodynamics::rotateVector2Earthframe({control_state.thrust, 0 },  control_state.gamma);
-
-    std::cout << "thrust_vector = " << thrust_vector[0] << " " << thrust_vector[1] << std::endl;
     std::array<double,2 > u = _aero.getForcesBodyframe(Aerodynamics::rotateVector2Bodyframe(velocity, control_state.gamma));
+    u[0] += control_state.thrust;
+
     u = Aerodynamics::rotateVector2Earthframe(u, control_state.gamma);
 
-    u[0] += thrust_vector[0];
-    u[1] += thrust_vector[1];
 
     _applyGroundEffect(u);
     _applyBoundaries(u, state.z);
@@ -72,7 +63,8 @@ std::array<double, 2> Control::getForces(const State &state, ControlState& contr
     }
 
     void Control::_applyBoundaries(std::array<double, 2> &forces, double altitude){
-        if ( (forces[1] < _uav_mass*9.81) && (altitude < 0.01) && (_current_control_mode == TAKEOFF)){
+        
+        if ( (forces[1] < _uav.getTotalMass()*9.81) && (altitude < 0.01) && (_current_control_mode == TAKEOFF)){
             forces[1] = 0e0;
         }
     }

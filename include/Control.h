@@ -50,5 +50,5 @@ private:
     ControlMode _current_control_mode;
     ThrustMode _current_thrust_mode;
     Aerodynamics _aero;
-    double _uav_mass;
+    UAV _uav;
 };
