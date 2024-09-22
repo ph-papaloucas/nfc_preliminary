@@ -1,12 +1,16 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(nfc_preliminary VERSION 0.1.0 LANGUAGES C CXX)
 
+#prepare externals to add to library
+file(GLOB_RECURSE externals_source_files "externals/maths/*.cpp")
+file(GLOB_RECURSE externals_header_files "include/*.h")
+
 
 
 # Add source code as a library
 file(GLOB_RECURSE source_files "src/*.cpp")
 file(GLOB_RECURSE header_files "include/*.h")
-add_library(nfc_preliminary STATIC ${source_files} ${header_files})
+add_library(nfc_preliminary STATIC ${source_files} ${header_files} ${externals_source_files} ${externals_header_files})
 
 
 # Add executables from the "single_executables" folder
