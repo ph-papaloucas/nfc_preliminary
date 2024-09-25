@@ -22,8 +22,8 @@ std::array<double, 2> Aerodynamics::rotateVector2Bodyframe(std::array<double, 2>
 
 }
 std::array<double,2 > Aerodynamics::rotateVector2Earthframe(std::array<double, 2> vector, double gamma){
-    return {cos(-gamma)*vector[0] - sin(-gamma)*vector[1],
-            sin(-gamma)*vector[0] + cos(-gamma)*vector[1]};
+    return {cos(gamma)*vector[0] + sin(gamma)*vector[1],
+            -sin(gamma)*vector[0] + cos(gamma)*vector[1]};
 }
 
 double Aerodynamics::rad2deg(double rad){
@@ -38,6 +38,8 @@ std::array<double, 2> Aerodynamics::getForcesBodyframe(std::array<double, 2> vel
     double velocity_norm = sqrt( pow(velocity_bodyframe[0],2) + pow(velocity_bodyframe[1],2));
     double qinf = _qinf(velocity_norm);
     double aoa = atan2(velocity_bodyframe[1], velocity_bodyframe[0]);
+    std::cout << "velocity_bodyframe = " << velocity_bodyframe[0] << " " <<velocity_bodyframe[1] << std::endl;
+    std::cout << "aoa = " << Aerodynamics::rad2deg(aoa) << std::endl;
 
     double cl = 2*M_PI*aoa - _uav.getCl0();
     double cd = _uav.getCd0() +pow(cl,2)/(2*M_PI*_uav.getAR()*_e);
