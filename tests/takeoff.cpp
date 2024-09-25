@@ -13,7 +13,7 @@ int main(){
     double a0 = Aerodynamics::deg2rad(-4);
     double mass = 4;
     UAV p1(S, AR, mass, a0, 1);
-    p1.setAoaTakeoff(Aerodynamics::deg2rad(0));
+    //p1.setAoaTakeoff(Aerodynamics::deg2rad(0));
     Aerodynamics aero(p1);
 
 

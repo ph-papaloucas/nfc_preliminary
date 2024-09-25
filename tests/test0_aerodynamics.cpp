@@ -22,13 +22,11 @@ int main(){
     gamma = Aerodynamics::deg2rad(gamma);
 
 
-    std::array<double, 2> velocity = {10, 0 };
+    std::array<double, 2> velocity = {10, 2 };
     std::cout << "Velocity = " << velocity[0] << " " << velocity[1] << std::endl;
     std::cout << "S    AR    a0 = " << S << "    " << AR << "    " << a0 << std::endl;
-    std::array<double,2> forces_bodyframe = aero.getForcesBodyframe(Aerodynamics::rotateVector2Bodyframe(velocity, gamma));
-    std::array<double, 2> F  = Aerodynamics::rotateVector2Earthframe(forces_bodyframe, gamma);
-    std::cout << "Lift = " << forces_bodyframe[1] << "    Drag = " << -forces_bodyframe[0] << std::endl;
-    std::cout << "Forces earthaxis = " << F[0] << " " << F[1] << std::endl;
+    std::array<double,2> F = aero.getAeroForcesEarthframe(velocity, gamma);
+    std::cout << "F = " << F[0] << " " << F[1] << std::endl;
 
     return 0 ;
 }

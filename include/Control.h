@@ -34,7 +34,19 @@ public:
 
 
 
-    std::array<double, 2> getForces(const State &state, ControlState& control_state);
+    // std::array<double, 2> getForces(const State &state, ControlState& control_state);
+    // bool checkTermination(double Fz){
+    //     // case (_current_control_mode){
+    //     // switch TAKEOFF:
+    //     //     if 
+
+    //     //     break;
+
+    //     // }
+
+
+    //     return false;
+    // }
 
 
 private:

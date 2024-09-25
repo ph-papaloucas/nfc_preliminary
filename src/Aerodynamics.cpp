@@ -16,14 +16,20 @@ AeroState Aerodynamics::getCruiseState(double velocity){
     return AeroState(aoa, cl, velocity);
 }
 
-std::array<double, 2> Aerodynamics::rotateVector2Bodyframe(std::array<double, 2> vector, double gamma){
+std::array<double, 2> Aerodynamics::rotateFromEarth2Bodyframe(std::array<double, 2> vector, double gamma){
     return {cos(gamma)*vector[0] - sin(gamma)*vector[1],
             sin(gamma)*vector[0] + cos(gamma)*vector[1]};
 
 }
-std::array<double,2 > Aerodynamics::rotateVector2Earthframe(std::array<double, 2> vector, double gamma){
+std::array<double, 2> Aerodynamics::rotateFromBody2Earthframe(std::array<double, 2> vector, double gamma){
     return {cos(gamma)*vector[0] + sin(gamma)*vector[1],
             -sin(gamma)*vector[0] + cos(gamma)*vector[1]};
+
+}
+std::array<double,2 > Aerodynamics::rotateFromWind2Earthframe(std::array<double, 2> vector, std::array<double, 2> velocity){
+    double theta = atan2(velocity[1], velocity[0]);
+    return {cos(theta)*vector[0] + sin(theta)*vector[1],
+            -sin(theta)*vector[0] + cos(theta)*vector[1]};
 }
 
 double Aerodynamics::rad2deg(double rad){
@@ -34,11 +40,11 @@ double Aerodynamics::deg2rad(double deg){
     return deg*M_PI/180;
 }
 
-std::array<double, 2> Aerodynamics::getForcesBodyframe(std::array<double, 2> velocity_bodyframe){
-    double velocity_norm = sqrt( pow(velocity_bodyframe[0],2) + pow(velocity_bodyframe[1],2));
+std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2> velocity, double gamma){
+    double velocity_norm = sqrt( pow(velocity[0],2) + pow(velocity[1],2));
     double qinf = _qinf(velocity_norm);
-    double aoa = atan2(velocity_bodyframe[1], velocity_bodyframe[0]);
-    std::cout << "velocity_bodyframe = " << velocity_bodyframe[0] << " " <<velocity_bodyframe[1] << std::endl;
+    double aoa = atan2(velocity[1], velocity[0]) + gamma;
+    std::cout << "velocity = " << velocity[0] << " " <<velocity[1] << std::endl;
     std::cout << "aoa = " << Aerodynamics::rad2deg(aoa) << std::endl;
 
     double cl = 2*M_PI*aoa - _uav.getCl0();

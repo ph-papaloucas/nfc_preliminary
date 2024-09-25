@@ -39,7 +39,7 @@ double Control::_getGamma(std::array<double, 2> velocity){
 
 void Control::_applyControl(ControlState &control_state, std::array<double,2 > velocity){
     control_state.gamma = _getGamma(velocity);
-    control_state.thrust = _getThrust(Aerodynamics::rotateVector2Bodyframe(velocity, control_state.gamma));
+    control_state.thrust = _getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.gamma));
 
 
 }
@@ -47,11 +47,10 @@ void Control::_applyControl(ControlState &control_state, std::array<double,2 > v
 std::array<double, 2> Control::getForces(const State &state, ControlState& control_state){
     std::array<double, 2> velocity = {state.u, state.w};
     _applyControl(control_state, velocity);
-    std::array<double,2 > u = _aero.getForcesBodyframe(Aerodynamics::rotateVector2Bodyframe(velocity, control_state.gamma));
-    u[0] += control_state.thrust;
-
-    u = Aerodynamics::rotateVector2Earthframe(u, control_state.gamma);
-
+    std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.gamma);
+    std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, control_state.gamma);
+    u[0] += thrust_earthaxis[0];
+    u[1] += thrust_earthaxis[1];
 
     _applyGroundEffect(u);
     _applyBoundaries(u, state.z);
