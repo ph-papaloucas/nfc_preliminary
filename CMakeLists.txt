@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(nfc_preliminary VERSION 0.1.0 LANGUAGES C CXX)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-DDEBUG)
+    add_definitions(-DVERBOSITY_LEVEL=1)  # Set verbosity level for Debug builds
+endif()
+
+#if(NOT CMAKE_BUILD_TYPE)
+   # set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
+#endif()
+
 #prepare externals to add to library
 file(GLOB_RECURSE externals_source_files "externals/maths/*.cpp")
 file(GLOB_RECURSE externals_header_files "include/*.h")

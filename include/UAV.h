@@ -24,17 +24,25 @@ public:
     double getAoaTakeoff(){
         return _aoa_takeoff;
     }
+    double getWingspan(){
+        return sqrt(getAR()*_surface);
+    }
 
     double getPayloadMass();    //not implemented yet
     double getPayloadVolume();  //not implemented yet
 
-    double setAoaTakeoff(double aoa_takeoff){
+    void setAoaTakeoff(double aoa_takeoff){
         _aoa_takeoff = aoa_takeoff;
+    }
+
+    double getWheelOffset(){
+        return _wheel_offset;
     }
 private:
     double _surface, _a0, _aspect_ratio, _total_mass;
     double _cd0 = 0.015;
     double _payload_density;
     double _aoa_takeoff = 10*3.14159/180;
+    double _wheel_offset = 0.1;
     EngineMap _engine;
 };

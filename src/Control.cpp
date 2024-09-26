@@ -26,20 +26,31 @@ double Control::_getThrust(std::array<double, 2> velocity_bodyframe){
     }
     return thrust;
 }
-double Control::_getGamma(std::array<double, 2> velocity){
-    double gamma = 0;
+double Control::_getTheta(std::array<double, 2> velocity){
+    double theta = 0;
+    #ifdef DEBUG
+        if(VERBOSITY_LEVEL>=3){
+            std::cout << "CONTROL MODE = " << _current_control_mode << std::endl;
+        }
+    #endif
     switch (_current_control_mode){
         case TRIM:
-            gamma =  _aero.getGammaForTrim(velocity);
+            theta =  _aero.getThetaForTrim(velocity, );
+            break;
         case TAKEOFF:
-            gamma =  _uav.getAoaTakeoff();
+            theta =  _uav.getAoaTakeoff();
+            break;
+        case CONST_GAMMA:
+            theta = 0;
+            break;
+
     }
-    return gamma;
+    return theta;
 }
 
 void Control::_applyControl(ControlState &control_state, std::array<double,2 > velocity){
-    control_state.gamma = _getGamma(velocity);
-    control_state.thrust = _getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.gamma));
+    control_state.theta = _getTheta(velocity);
+    control_state.thrust = _getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.theta));
 
 
 }
@@ -47,25 +58,32 @@ void Control::_applyControl(ControlState &control_state, std::array<double,2 > v
 std::array<double, 2> Control::getForces(const State &state, ControlState& control_state){
     std::array<double, 2> velocity = {state.u, state.w};
     _applyControl(control_state, velocity);
-    std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.gamma);
-    std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, control_state.gamma);
+
+    bool apply_ground_effect = true;
+    std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset(), _uav.getWingspan(), _uav.getAR());
+    std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, control_state.theta);
     u[0] += thrust_earthaxis[0];
     u[1] += thrust_earthaxis[1];
 
-    _applyGroundEffect(u);
-    _applyBoundaries(u, state.z);
+    //_applyGroundEffect(u);
     return u;
 }
-    void Control::_applyGroundEffect(std::array<double, 2> &forces){
-        std::cerr << "Control::applyGroundEffect isnt implemented yet...\n";
-        std::cerr << "Control::applyGroundEffect isnt implemented yet...\n";
-    }
 
-    void Control::_applyBoundaries(std::array<double, 2> &forces, double altitude){
+    void Control::applyBoundaries(std::array<double, 2> &forces, double altitude){
         
         if ( (forces[1] < _uav.getTotalMass()*9.81) && (altitude < 0.01) && (_current_control_mode == TAKEOFF)){
             forces[1] = 0e0;
         }
+    }
+
+    bool Control::checkTermination(const State &state, std::array<double, 2> u){
+        switch (_current_control_mode){
+            case TAKEOFF:
+            if (u[1] > 1.3*_uav.getTotalMass())
+                return true;
+            break;
+        }
+        return false;
     }
 
 

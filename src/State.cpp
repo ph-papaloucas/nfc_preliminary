@@ -3,8 +3,8 @@
 AeroState::AeroState(double angle_of_attack, double velocity, double cl): 
     angle_of_attack(angle_of_attack), velocity(velocity), cl(cl){};
 
-ControlState::ControlState():gamma(0e0), thrust(0e0){};
-ControlState::ControlState(double gamma, double thrust): gamma(gamma), thrust(thrust){};
+ControlState::ControlState():theta(0e0), thrust(0e0){};
+ControlState::ControlState(double theta, double thrust): theta(theta), thrust(thrust){};
 
 
 
@@ -54,7 +54,7 @@ void StateHistory::appendState(double t, const State& state, const ControlState&
 
 std::ostream& operator<<(std::ostream& out, const StateHistory& data){
         out << std::fixed << std::setprecision(6); // Set fixed-point notation and precision to 2 decimal places
-        out << "time     x        z        u        w     Fx       Fz     gamma    thrust\n"; 
+        out << "time     x        z        u        w     Fx       Fz     theta    thrust\n"; 
         for (int i=0;i < data._time.size(); ++i){
             out     <<data._time[i] << ' '
                     << data._history[i].x << ' ' 
@@ -63,9 +63,42 @@ std::ostream& operator<<(std::ostream& out, const StateHistory& data){
                     << data._history[i].w << ' '
                     << data._history[i].Fx << ' '
                     << data._history[i].Fz << ' '
-                    << data._control_history[i].gamma << ' '
+                    << data._control_history[i].theta << ' '
                     << data._control_history[i].thrust << "\n";
         }
     
         return out;
+}
+
+void StateHistory::printToCsv(const std::string& filename){
+ // Open the file in output mode
+    std::ofstream file(filename + ".csv");
+
+    // Check if the file is successfully opened
+    if (!file.is_open()) {
+        throw std::runtime_error("Unable to open file: " + filename);
+    }
+
+    // Set the precision for floating-point values
+    file << std::fixed << std::setprecision(6);
+
+    // Write the CSV header
+    file << "time,x,z,u,w,Fx,Fz,theta,thrust\n";
+
+    // Write the data to the file in CSV format
+    for (int i = 0; i < _time.size(); ++i) {
+        file    << _time[i] << ','
+                << _history[i].x << ','
+                << _history[i].z << ','
+                << _history[i].u << ','
+                << _history[i].w << ','
+                << _history[i].Fx << ','
+                << _history[i].Fz << ','
+                << _control_history[i].theta << ','
+                << _control_history[i].thrust << '\n';
+    }
+
+    // Close the file
+    file.close();
+
 }

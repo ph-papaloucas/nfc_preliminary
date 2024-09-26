@@ -12,15 +12,17 @@ public:
 
     AeroState getCruiseState(double velocity);
 
-    double getGammaForTrim(std::array<double, 2> velocity);
+    double getThetaForTrim(std::array<double, 2> velocity, double thrust);
+
 
     //std::array<double, 2> getForcesBodyframe(std::array<double, 2> velocity_bodyframe);
-    std::array<double, 2> getAeroForcesEarthframe(std::array<double, 2> velocity, double  gamma);
+    std::array<double, 2> getAeroForcesEarthframe(std::array<double, 2> velocity, double  theta, bool apply_ground_effect, double height, double wingspan, double AR);
+    std::array<double, 2> getAeroForcesEarthframe(std::array<double, 2> velocity, double  theta);
 
 
-    static std::array<double, 2> rotateFromEarth2Bodyframe(std::array<double, 2> vector, double gamma);
+    static std::array<double, 2> rotateFromEarth2Bodyframe(std::array<double, 2> vector, double theta);
     static std::array<double,2 > rotateFromWind2Earthframe(std::array<double, 2> vector, std::array<double, 2> velocity_vector);
-    static std::array<double, 2> rotateFromBody2Earthframe(std::array<double, 2> vector, double gamma);
+    static std::array<double, 2> rotateFromBody2Earthframe(std::array<double, 2> vector, double theta);
     static double rad2deg(double rad);
     static double deg2rad(double deg);
 private:

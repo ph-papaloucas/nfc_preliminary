@@ -6,6 +6,7 @@
 #include <array>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <fstream>
 
 class AeroState{
 public:
@@ -25,9 +26,9 @@ public:
 class ControlState{
 public:
     ControlState();
-    ControlState(double gamma, double thrust);
+    ControlState(double theta, double thrust);
 
-    double gamma;
+    double theta;
     double thrust;
 };
 
@@ -50,7 +51,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const State& data){
         out << std::fixed << std::setprecision(6); // Set fixed-point notation and precision to 2 decimal places
-        out << "x        z        u        w        gamma    Fx       Fz\n"; 
+        out << "x        z        u        w        theta    Fx       Fz\n"; 
         out     << data.x << ' ' 
                 << data.z << ' ' 
                 << data.u << ' ' 
@@ -76,7 +77,11 @@ public:
 
 
     friend std::ostream& operator<<(std::ostream& out, const StateHistory& data);
+    void printToCsv(const std::string& filename);
 
+    double getLastTime(){
+        return _time.back();
+    }
 
 private:
     std::vector<State> _history;

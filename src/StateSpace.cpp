@@ -32,6 +32,11 @@ bool StateSpace::_updateScreen(int timestep){
 
 
 void StateSpace::solve(UAV& uav, State& initial_state, Control& control, ControlState& control_state){
+
+    #ifdef DEBUG
+        if (VERBOSITY_LEVEL>=1)
+            std::cout << "SOLVING FOR INITIAL STATE: \n" << initial_state << std::endl;
+        #endif
     //initial values
     double t = _t0;
     int timestep = 0;
@@ -46,32 +51,17 @@ void StateSpace::solve(UAV& uav, State& initial_state, Control& control, Control
         //get input
         
         u = control.getForces(computed_state, control_state);
-        std::cout << "u = " << u[0] << " " << u[1] << std::endl;
+        if (control.checkTermination(computed_state, u)){
+            #ifdef DEBUG
+                if (VERBOSITY_LEVEL >=1){
+                    std::cout << "TERMINATING RK4 \n";
+                    std::cout << "Fz = " << u[1] << std::endl;
+                }
+            #endif
 
-
-        // // terminate at takeoff
-        // if (terminate_at_takeoff){
-        //     double Lift = u[1];
-        //     double Weight = uav.getTotalMass()*9.81;
-
-        //     if (StateSpace::_updateScreen(timestep))
-        //         std::cout << "Lift/Weight = " << Lift/Weight << std::endl;
-
-        //     if (Lift >= 1.3*Weight){
-        //         std::cout << "\nTerminate Case 1, terminate when Lift = 1.3Weight" << std::endl;
-        //         std::cout << "Lift is " << Lift/Weight << "times higher than Weight " << std::endl;
-        //         break;
-        //     }
-        //     if (computed_state.z >= 0.1 ){
-        //         std::cout << "\nTerminate Case 2, terminate when leave the floor" << std::endl;
-        //         std::cout << "If you didnt trim for takeoff, you might never get the Termination case 1: Lift = 1.3Weight\n";
-        //         std::cout << "Lift is " << Lift/Weight << "times higher than Weight " << std::endl;
-        //         break;
-        //     }
-        
-        // }
-
-
+            break; //to terminate RK4
+        }
+        control.applyBoundaries(u, computed_state.z);
 
         //solve RK4
         computed_state  = _stepRK4(t, uav, x, u, control);
