@@ -3,7 +3,7 @@
 Control::Control():_max_amps(0), _current_thrust_mode(MAX){};
 Control::Control(EngineMap engine, const UAV& uav, double max_amps):_engine(engine),_uav(uav), _aero(uav), _max_amps(max_amps), _current_thrust_mode(MAX){};
 
-double Control::_getThrust(std::array<double, 2> velocity_bodyframe){
+double Control::getThrust(std::array<double, 2> velocity_bodyframe) const{
     double vel_wind = velocity_bodyframe[0];
     double thrust = 0 ;
 
@@ -34,14 +34,14 @@ double Control::_getTheta(std::array<double, 2> velocity){
         }
     #endif
     switch (_current_control_mode){
-        case TRIM:
-            theta =  _aero.getThetaForTrim(velocity, );
-            break;
+        // case TRIM:
+        //     theta =  _aero.getThetaForTrim(velocity, );
+        //     break;
         case TAKEOFF:
             theta =  _uav.getAoaTakeoff();
             break;
-        case CONST_GAMMA:
-            theta = 0;
+        case TRIM_GAMMA:
+            theta = _aero.getThetaForTrim(velocity, *(this));
             break;
 
     }
@@ -50,7 +50,7 @@ double Control::_getTheta(std::array<double, 2> velocity){
 
 void Control::_applyControl(ControlState &control_state, std::array<double,2 > velocity){
     control_state.theta = _getTheta(velocity);
-    control_state.thrust = _getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.theta));
+    control_state.thrust = getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.theta));
 
 
 }
@@ -60,7 +60,7 @@ std::array<double, 2> Control::getForces(const State &state, ControlState& contr
     _applyControl(control_state, velocity);
 
     bool apply_ground_effect = true;
-    std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset(), _uav.getWingspan(), _uav.getAR());
+    std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset());
     std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, control_state.theta);
     u[0] += thrust_earthaxis[0];
     u[1] += thrust_earthaxis[1];

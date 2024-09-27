@@ -22,7 +22,7 @@ int main(){
     gamma = Aerodynamics::deg2rad(gamma);
 
 
-    std::array<double, 2> velocity = {10, 2 };
+    std::array<double, 2> velocity = {10, -2 };
     std::cout << "Velocity = " << velocity[0] << " " << velocity[1] << std::endl;
     std::cout << "S    AR    a0 = " << S << "    " << AR << "    " << a0 << std::endl;
     std::array<double,2> F = aero.getAeroForcesEarthframe(velocity, gamma);

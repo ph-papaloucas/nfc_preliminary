@@ -6,7 +6,7 @@
 
 #include "EngineMap.h"
 
-double EngineMap::thrustOfWindspeedCurrent(double &windspeed, double &current)
+double EngineMap::thrustOfWindspeedCurrent(const double &windspeed, const double &current) const
 {
 	double x = windspeed;
 	double y = current;
@@ -76,7 +76,7 @@ double EngineMap::thrustOfWindspeedCurrent(double &windspeed, double &current)
 	else
 	{
 		std::cout << "ERROR: prop " << propeller << " is unknown" << std::endl;
-		validPropeller = false;
+		//validPropeller = false;
 	}
 
 	return p00 + p10 * x + p01 * y + p20 * pow(x, 2) + p11 * x * y +

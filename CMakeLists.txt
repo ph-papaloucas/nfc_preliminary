@@ -3,7 +3,7 @@ project(nfc_preliminary VERSION 0.1.0 LANGUAGES C CXX)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DDEBUG)
-    add_definitions(-DVERBOSITY_LEVEL=1)  # Set verbosity level for Debug builds
+    add_definitions(-DVERBOSITY_LEVEL=-1)  # Set verbosity level for Debug builds
 endif()
 
 #if(NOT CMAKE_BUILD_TYPE)

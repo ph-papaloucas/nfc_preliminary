@@ -25,6 +25,6 @@ class EngineMap
 	bool validPropeller = true;
 
 
-	double thrustOfWindspeedCurrent(double &windspeed, double &current);
+	double thrustOfWindspeedCurrent(const double &windspeed, const double &current) const;
 	double powerOfWindspeedCurrent(double &windspeed, double &current);
 };

@@ -5,7 +5,6 @@
 #include "UAV.h"
 #include <tuple>
 
-
 class Control {
 public:
 
@@ -17,7 +16,7 @@ public:
     enum ControlMode {
        UNDEFINED,
         TAKEOFF,
-        CONST_GAMMA,
+        TRIM_GAMMA,
         TRIM,
     };
 
@@ -31,9 +30,9 @@ public:
     void applyBoundaries(std::array<double, 2> &forces, double altitude);
 
 
+    double getThrust(std::array<double, 2> bodyframe_velocity) const;
 private:
     double _getTheta(std::array<double, 2> velocity);
-    double _getThrust(std::array<double, 2> bodyframe_velocity);
 
     void _applyControl(ControlState &control_state, std::array<double,2 > velocity);
 

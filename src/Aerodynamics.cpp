@@ -1,4 +1,5 @@
 #include "Aerodynamics.h"
+#include "Control.h"
 
 Aerodynamics::Aerodynamics(const UAV& uav):_uav(uav){};
 
@@ -27,7 +28,8 @@ std::array<double, 2> Aerodynamics::rotateFromBody2Earthframe(std::array<double,
 
 }
 std::array<double,2 > Aerodynamics::rotateFromWind2Earthframe(std::array<double, 2> vector, std::array<double, 2> velocity){
-    double theta = atan2(velocity[1], velocity[0]);
+    double a1 = _getAoa1(velocity);
+    double theta = a1; //because a1 is negative (see aerodynamic aoa positive)
     return {cos(theta)*vector[0] + sin(theta)*vector[1],
             -sin(theta)*vector[0] + cos(theta)*vector[1]};
 }
@@ -41,50 +43,132 @@ double Aerodynamics::deg2rad(double deg){
 }
 
 
-std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2> velocity, double theta,  bool apply_ground_effect, double height, double wingspan, double AR){
+std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2> velocity, double theta,  bool apply_ground_effect, double height){
     double velocity_norm = sqrt( pow(velocity[0],2) + pow(velocity[1],2));
     double qinf = _qinf(velocity_norm);
-    double aoa = atan2(velocity[1], velocity[0]) + theta;
 
+    std::array<double, 2> cl_cd= getCoeffs(velocity, theta, apply_ground_effect, height);
+
+    double lift = qinf*_uav.getSurface()*cl_cd[0];
+    double drag = qinf*_uav.getSurface()*cl_cd[1];
+
+    std::array<double, 2> F = {-drag, lift};
+
+	return   Aerodynamics::rotateFromWind2Earthframe(F, velocity);;
+}
+
+std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2> velocity, double theta){
+    return getAeroForcesEarthframe(velocity, theta, false, 0);
+
+}
+
+std::array<double, 2> Aerodynamics::getCoeffs(std::array<double, 2> velocity, double theta, bool apply_ground_effect, double height){
+    double aoa = theta + _getAoa1(velocity);
     double cl = 2*M_PI*aoa - _uav.getCl0();
     if (apply_ground_effect){
         double cl_increase_factor =
-            1 + (288 * pow(height / wingspan, 0.787) *
-                    exp(-9.14 * pow(height / wingspan, 0.327)) /
-                    pow(AR, 0.882));
+            1 + (288 * pow(height / _uav.getWingspan(), 0.787) *
+                    exp(-9.14 * pow(height / _uav.getWingspan(), 0.327)) /
+                    pow(_uav.getAR(), 0.882));
         cl = cl_increase_factor * cl;
         #ifdef DEBUG
         if(VERBOSITY_LEVEL >=2)
             std::cout << "Ground effect: " << "height = " << height << "cl_increase_factor = " << cl_increase_factor << std::endl;
         #endif
     }
-
-
-
     double cd = _uav.getCd0() + pow(cl,2)/(2*M_PI*_uav.getAR()*_e);
-
-    double lift = qinf*_uav.getSurface()*cl;
-    double drag = qinf*_uav.getSurface()*cd;
-
 
     #ifdef DEBUG
         if(VERBOSITY_LEVEL >=3){
             std::cout << "velocity = " << velocity[0] << " " <<velocity[1] << std::endl;
-            std::cout << "aoa = " << Aerodynamics::rad2deg(aoa) << std::endl;
-            std::cout << "drag = " << drag << "  lift = " << lift <<std::endl;
+            std::cout << "aoa  = " << Aerodynamics::rad2deg(aoa) << " [deg]" << std::endl;
+            std::cout << " cl = " << cl << "  cd = " << cd <<std::endl;
         }
     #endif
-    std::array<double, 2> F = {-drag, lift};
 
 
-	return    Aerodynamics::rotateFromWind2Earthframe(F, velocity);;
-
-}
-std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2> velocity, double theta){
-    return getAeroForcesEarthframe(velocity, theta, false, 0, 0, 0);
-
+    return{cl, cd};
 }
 
+double Aerodynamics::getThetaForTrim(std::array<double, 2> velocity,const Control& control){
+
+    const double a1 = _getAoa1(velocity);
+    const double velocity_norm = sqrt(pow(velocity[0],2) + pow(velocity[1],2));
+    const double qinf = _qinf(velocity_norm);
+
+    //
+    double iterations = 0;
+    const double tolerance_for_fz = 1e-7; 
+    const double tolerance_for_theta = 1e-9;
+    const int max_iterations = 900;
+    double relax = 0.3;
+
+    //Initialize guess and prepare variables
+    double theta = 0.0;
+    double theta_prev = 1;
+    std::array<double, 2> cl_cd = {0,0};
+    double drag = 0;
+    double thrust = 0;
+    double aoa = 0;
+
+    bool fz_tolerance_reached = false;
+    std::cout << "TEST BOOL = " << (!fz_tolerance_reached) << std::endl;
+    while( (std::abs(theta_prev - theta) > tolerance_for_theta) || (!fz_tolerance_reached) ){
+        iterations++;
+
+        if (iterations == 200)
+            relax = 0.15;
+
+        // Solve for aoa so that theta_prev = theta
+        theta_prev = theta;
+        cl_cd = getCoeffs({velocity[0], velocity[1]}, theta, false, 0);
+        drag = cl_cd[1]*qinf*_uav.getSurface();
+        thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
+        theta = relax*
+                (
+                + drag*sin(a1)
+                + _uav.getTotalMass()*9.81  
+                - thrust*sin(theta) 
+                - (2*M_PI*a1 - _uav.getCl0())*qinf*_uav.getSurface()*cos(a1)
+                )
+                /
+                (
+                    2*M_PI*qinf*_uav.getSurface()*cos(a1)
+                ) 
+                + (1-relax)*theta;
+
+        //aoa = theta + a1
+        theta = std::min(theta, _uav.getStallAoa() - a1);
+        std::array<double, 2> u =  getAeroForcesEarthframe(velocity, theta);
+        #ifdef DEBUG
+            if (VERBOSITY_LEVEL >=4){
+                std::cout << "iterations = " << iterations <<std::endl;
+                std::cout << "error = " << theta - theta_prev << std::endl;
+                std::cout << "theta = " << theta << std::endl;
+                std::cout << "theta_prev " << theta_prev << std::endl;
+            }
+        #endif
+
+        if (std::abs(theta_prev - theta) < tolerance_for_theta){
+            //check tolerance for Fz force..
+            std::array<double, 2> u = getAeroForcesEarthframe(velocity, theta);
+            double fz = u[1] - _uav.getTotalMass()*9.81 + thrust*sin(theta);
+            if (abs(fz) < tolerance_for_fz)
+                fz_tolerance_reached = true;
+            #ifdef DEBUG
+                if (VERBOSITY_LEVEL >=4){
+                    std::cout << "theta tolerance reached. Fz = " << fz << std::endl;
+                }
+            #endif
+        }
+        if (iterations >= max_iterations){
+            std::cerr << "Aerodynamics::getThetaForTrim UNDEFINED BEHAVIOR. Max iterations reached without trimming\n";
+            break;
+        }
+    }
+
+    return theta;
+}
 // double Aerodynamics::getThetaForTrim(std::array<double, 2> velocity, double thrust){
 //     std::cerr << "SOS didnt implement Aerodynamics::getthetaForTrim() yet...\n";
 //     std::cerr << "SOS didnt implement Aerodynamics::getthetaForTrim() yet...\n";
@@ -157,3 +241,13 @@ std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2
 
 //     return 0;
 // }
+
+
+double Aerodynamics::_getAoa1(std::array<double, 2> velocity){ //this is without theta
+    double aoa = atan2(velocity[1], velocity[0]);
+    #ifdef DEBUG
+        if(VERBOSITY_LEVEL>=3)
+            std::cout << "_getAoa1 = " << Aerodynamics::rad2deg( aoa) <<std::endl;
+    #endif
+    return aoa;
+}

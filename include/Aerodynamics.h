@@ -5,6 +5,8 @@
 
 #include <cmath>
 
+
+class Control; //forward declaration
 class Aerodynamics{
 public:
     Aerodynamics(){};
@@ -12,12 +14,13 @@ public:
 
     AeroState getCruiseState(double velocity);
 
-    double getThetaForTrim(std::array<double, 2> velocity, double thrust);
+    double getThetaForTrim(std::array<double, 2> velocity,const Control& control);
 
 
     //std::array<double, 2> getForcesBodyframe(std::array<double, 2> velocity_bodyframe);
-    std::array<double, 2> getAeroForcesEarthframe(std::array<double, 2> velocity, double  theta, bool apply_ground_effect, double height, double wingspan, double AR);
+    std::array<double, 2> getAeroForcesEarthframe(std::array<double, 2> velocity, double theta,  bool apply_ground_effect, double height);
     std::array<double, 2> getAeroForcesEarthframe(std::array<double, 2> velocity, double  theta);
+    std::array<double, 2> getCoeffs(std::array<double, 2> velocity, double theta, bool apply_ground_effect, double height);
 
 
     static std::array<double, 2> rotateFromEarth2Bodyframe(std::array<double, 2> vector, double theta);
@@ -25,6 +28,7 @@ public:
     static std::array<double, 2> rotateFromBody2Earthframe(std::array<double, 2> vector, double theta);
     static double rad2deg(double rad);
     static double deg2rad(double deg);
+    static double _getAoa1(std::array<double, 2> velocity);//this is without theta
 private:
     double _e = 0.8; //oswald coeff
     double _qinf(double velocity);
