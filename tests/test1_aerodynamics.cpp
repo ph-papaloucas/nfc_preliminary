@@ -96,28 +96,41 @@ std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
     F = aero.getAeroForcesEarthframe(velocity, theta);
     printForce(F);
 
-    std::cout << "\n\n\n========================\nTesting thetaForTrim()\n";
+    std::cout << "\n\n\n========================\nTesting thetaForTrim()\n\n";
     double thrust = 0;
     EngineMap engine(EngineMap::P13x65);
-    Control control(engine, p1, 30);
+    Control control(engine, p1, 10);
+    double velocity_norm = 15;
 
 
-    velocity = {15 ,0};
+    velocity = {velocity_norm  ,0};
     theta = aero.getThetaForTrim(velocity, control);
     printStuff(theta, velocity);
+    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::_getAoa1(velocity)) << std::endl;
     F = aero.getAeroForcesEarthframe(velocity, theta);
     printForce(F);
     thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
-    std::cout << " F[1]-m*g +thrust*sin(theta) = " << F[1] - p1.getTotalMass()*9.81 + thrust*sin(theta) << std::endl;
+    std::cout << " Fztotal = " << F[1] - p1.getTotalMass()*9.81 + thrust*sin(theta) << std::endl;
 
 
-    velocity = {15, 1};
+    velocity = {sqrt(pow(velocity_norm, 2)/2),sqrt(pow(velocity_norm, 2)/2)};
     theta = aero.getThetaForTrim(velocity, control);
     printStuff(theta, velocity);
+    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::_getAoa1(velocity)) << std::endl;
     F = aero.getAeroForcesEarthframe(velocity, theta);
     printForce(F);
     thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
-    std::cout << " F[1]-m*g +thrust*sin(theta) = " << F[1] - p1.getTotalMass()*9.81 + thrust*sin(theta) << std::endl;
+    std::cout << " Fztotal = " << F[1] - p1.getTotalMass()*9.81 + thrust*sin(theta) << std::endl;
+
+    velocity = {sqrt(pow(velocity_norm, 2)/2),-sqrt(pow(velocity_norm, 2)/2)};
+    theta = aero.getThetaForTrim(velocity, control);
+    printStuff(theta, velocity);
+    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::_getAoa1(velocity)) << std::endl;
+    F = aero.getAeroForcesEarthframe(velocity, theta);
+    printForce(F);
+    thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
+    std::cout << " Fztotal = " << F[1] - p1.getTotalMass()*9.81 + thrust*sin(theta) << std::endl;
+
 
 
     return 0 ;

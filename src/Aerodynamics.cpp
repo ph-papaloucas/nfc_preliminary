@@ -29,7 +29,7 @@ std::array<double, 2> Aerodynamics::rotateFromBody2Earthframe(std::array<double,
 }
 std::array<double,2 > Aerodynamics::rotateFromWind2Earthframe(std::array<double, 2> vector, std::array<double, 2> velocity){
     double a1 = _getAoa1(velocity);
-    double theta = a1; //because a1 is negative (see aerodynamic aoa positive)
+    double theta = -a1; //because a1 is negative (see aerodynamic aoa positive)
     return {cos(theta)*vector[0] + sin(theta)*vector[1],
             -sin(theta)*vector[0] + cos(theta)*vector[1]};
 }
@@ -112,7 +112,7 @@ double Aerodynamics::getThetaForTrim(std::array<double, 2> velocity,const Contro
     double aoa = 0;
 
     bool fz_tolerance_reached = false;
-    std::cout << "TEST BOOL = " << (!fz_tolerance_reached) << std::endl;
+
     while( (std::abs(theta_prev - theta) > tolerance_for_theta) || (!fz_tolerance_reached) ){
         iterations++;
 
@@ -244,7 +244,7 @@ double Aerodynamics::getThetaForTrim(std::array<double, 2> velocity,const Contro
 
 
 double Aerodynamics::_getAoa1(std::array<double, 2> velocity){ //this is without theta
-    double aoa = atan2(velocity[1], velocity[0]);
+    double aoa = -atan2(velocity[1], velocity[0]);
     #ifdef DEBUG
         if(VERBOSITY_LEVEL>=3)
             std::cout << "_getAoa1 = " << Aerodynamics::rad2deg( aoa) <<std::endl;
