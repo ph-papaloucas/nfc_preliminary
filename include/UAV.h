@@ -1,5 +1,8 @@
 #pragma once
 #include "EngineMap.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 
 class UAV{
 public:
