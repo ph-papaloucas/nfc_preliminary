@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "header_files_catalog.h"
+#include "aero_headers.h"
+#include <Scoring.h>
 int main(){
     std::cout << "Manuver simulation 1\n"; 
     std::cout << "==================================\n\n\n";

@@ -1,5 +1,5 @@
-#include "header_files_catalog.h"
-
+#include "aero_headers.h"
+#include "Scoring.h"
 int main(){
 
     /* Variables that are not dealt with yet*/

@@ -8,8 +8,6 @@
     # Set the runtime output directory for this specific executable
     set_target_properties(${test_name} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TESTS_ADJOINT_OUTPUT_PATH})
 
-    target_link_libraries(${test_name} nfc_preliminary)
-    target_link_libraries(${test_name} nfc_preliminary_adjoint)
-    target_link_libraries(${test_name} cppad_lib)
+    target_link_libraries(${test_name} aero aero_adjoint)
 
   endforeach()

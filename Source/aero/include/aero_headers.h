@@ -2,5 +2,4 @@
 #include "State.h"
 #include "EngineMap.h"
 #include "UAV.h"
-#include "Scoring.h"
 #include "StateSpace.h"

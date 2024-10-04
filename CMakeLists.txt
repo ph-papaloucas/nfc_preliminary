@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(nfc_preliminary VERSION 0.1.0 LANGUAGES C CXX)
 
+
+
 ## CHANGE THE FOLLOWING AS YOU WANT
 ####################################################################################################
 option(CLEAR_CACHE "Clear the CMake cache before configuring." OFF) # ON EVERYTIME YOU CHANGE SOMETHING OF THE ABOVE
 
-option(BUILD_TESTS "Enable the compilation of the test files." OFF)                # ON/  OFF
+option(BUILD_TESTS "Enable the compilation of the test files." ON)                # ON/  OFF
 option(BUILD_ADJOINT_TESTS "Enable the compilation of the adjoint test files." ON) # ON/  OFF
 set(CMAKE_BUILD_TYPE "Release")
 #set(CMAKE_BUILD_TYPE "Debug")
@@ -18,22 +20,14 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 
-##### Create source code library 
-file(GLOB_RECURSE source_files "src/*.cpp")
-file(GLOB_RECURSE header_files "include/*.h")
-add_library(nfc_preliminary STATIC ${source_files} ${header_files} ${externals_source_files} ${externals_header_files})
-target_include_directories(nfc_preliminary PUBLIC ${CMAKE_SOURCE_DIR}/include)
+#### Handle Externals
+add_subdirectory(Source/externals/cppad)
 
-#### Add nfc_preliminary_adjoint lib
-add_subdirectory(${CMAKE_SOURCE_DIR}/adjoint_src)
+#### Add source code
+add_subdirectory(Source)
 
-#### Add executables
+### Add executables
 add_subdirectory(${CMAKE_SOURCE_DIR}/main_executables)
-
-
-
-##### Add ccpad subdir 
-add_subdirectory(${CMAKE_SOURCE_DIR}/externals/cppad)
 
 #### Add executables from the "tests" folder
 if (BUILD_TESTS)
