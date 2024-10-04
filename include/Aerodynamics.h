@@ -30,7 +30,6 @@ public:
     static double deg2rad(double deg);
     static double _getAoa1(std::array<double, 2> velocity);//this is without theta
 private:
-    double _e = 0.8; //oswald coeff
     double _qinf(double velocity);
     UAV _uav;
 };

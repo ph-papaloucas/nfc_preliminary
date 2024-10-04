@@ -5,7 +5,7 @@ project(nfc_preliminary VERSION 0.1.0 LANGUAGES C CXX)
 ####################################################################################################
 option(CLEAR_CACHE "Clear the CMake cache before configuring." OFF) # ON EVERYTIME YOU CHANGE SOMETHING OF THE ABOVE
 
-option(BUILD_TESTS "Enable the compilation of the test files." ON)                # ON/  OFF
+option(BUILD_TESTS "Enable the compilation of the test files." OFF)                # ON/  OFF
 option(BUILD_ADJOINT_TESTS "Enable the compilation of the adjoint test files." ON) # ON/  OFF
 set(CMAKE_BUILD_TYPE "Release")
 #set(CMAKE_BUILD_TYPE "Debug")
@@ -24,8 +24,13 @@ file(GLOB_RECURSE header_files "include/*.h")
 add_library(nfc_preliminary STATIC ${source_files} ${header_files} ${externals_source_files} ${externals_header_files})
 target_include_directories(nfc_preliminary PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-#### Add executabler
+#### Add nfc_preliminary_adjoint lib
+add_subdirectory(${CMAKE_SOURCE_DIR}/adjoint_src)
+
+#### Add executables
 add_subdirectory(${CMAKE_SOURCE_DIR}/main_executables)
+
+
 
 ##### Add ccpad subdir 
 add_subdirectory(${CMAKE_SOURCE_DIR}/externals/cppad)

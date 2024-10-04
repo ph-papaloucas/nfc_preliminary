@@ -44,6 +44,9 @@ public:
     double getStallAoa(){
         return _aoa_stall_effective + _a0;
     }
+    double get_e(){
+        return _e;
+    }
 private:
     double _surface, _a0, _aspect_ratio, _total_mass;
     double _cd0 = 0.015;
@@ -52,4 +55,5 @@ private:
     double _wheel_offset = 0.1;
     EngineMap _engine;
     double _aoa_stall_effective = 15*3.14159/180;
+    const double _e = 0.8; //oswald coeff
 };

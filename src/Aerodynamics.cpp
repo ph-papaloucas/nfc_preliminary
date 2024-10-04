@@ -76,7 +76,7 @@ std::array<double, 2> Aerodynamics::getCoeffs(std::array<double, 2> velocity, do
             std::cout << "Ground effect: " << "height = " << height << "cl_increase_factor = " << cl_increase_factor << std::endl;
         #endif
     }
-    double cd = _uav.getCd0() + pow(cl,2)/(2*M_PI*_uav.getAR()*_e);
+    double cd = _uav.getCd0() + pow(cl,2)/(2*M_PI*_uav.getAR()*_uav.get_e());
 
     #ifdef DEBUG
         if(VERBOSITY_LEVEL >=3){

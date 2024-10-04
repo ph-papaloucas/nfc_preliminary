@@ -1,2 +1,4 @@
 build/
+.build/
+sim1.csv
 .vscode/
