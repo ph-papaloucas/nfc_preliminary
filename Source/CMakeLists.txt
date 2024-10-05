@@ -8,7 +8,7 @@ target_include_directories(aero PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/aero/include)
 
 ##
 ##Create adjoint library which depends on aero library
-#add_subdirectory(adjoint)
+add_subdirectory(adjoint)
 
 ##
 ##Create interface library nfc
