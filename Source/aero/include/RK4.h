@@ -33,6 +33,10 @@ using DynFunc = std::array<double, neq> (*)(
 //     return 0.0; // Replace with actual RK4 logic
 // }
 
+
+
+
+
 template <std::size_t neq, std::size_t nin, std::size_t nargs> std::array<double, neq> 
 stepRK4(DynFunc<neq, nin, nargs> dyn_func,
 const double t, const double dt, 
@@ -40,14 +44,16 @@ const std::array<double, neq>& x_prev,
 const std::array<double, nin>& u,
 const std::array<double, nargs>& args){
 
-    //RK4 constants
-    double a0 = 1.0 / 6.0;
-    double a1 = 2.0 / 6.0;
-    double a2 = 2.0 / 6.0;
-    double a3 = 1.0 / 6.0;
+
+    //RK4 coeffs
+    static const std::array<double, 4> RK4 = {
+        1.0 / 6.0,
+        2.0 / 6.0,
+        2.0 / 6.0,
+        1.0 / 6.0
+    };
 
     std::array<std::array<double, neq>, neq> K = {};
-
 
     //placeholders
     double t_2 = t + 0.5 * dt;
@@ -56,39 +62,27 @@ const std::array<double, nargs>& args){
     //at each timestep, forward iterations
     std::array<double, neq> x_temp = x_prev;
 
-    int step = 0;
+    int step = 0; //0 -> 1
     for (int ieq = 0; ieq < neq; ieq++) {
         K[step][ieq] = dt * dyn_func(x_temp, u, args)[ieq];
-    }
-    for (int ieq = 0; ieq < neq; ieq++) {
         x_temp[ieq] = x_prev[ieq] + 0.5 * K[step][ieq];
     }
 
-    step = 1;
+    step = 1;   //1 -> 2
     for (int ieq = 0; ieq < neq; ieq++) {
         K[step][ieq] = dt * dyn_func(x_temp, u, args)[ieq];
-    }
-    for (int ieq = 0; ieq < neq; ieq++) {
         x_temp[ieq] = x_prev[ieq] + 0.5 * K[step][ieq];
     }
-
-    step = 2;
+    step = 2;   //2 -> 3
     for (int ieq = 0; ieq < neq; ieq++) {
         K[step][ieq] = dt * dyn_func(x_temp, u, args)[ieq];
-    }
-    for (int ieq = 0; ieq < neq; ieq++) {
         x_temp[ieq] = x_prev[ieq] + K[step][ieq];
     }
 
-    step = 3;
+    step = 3; //3->4
     for (int ieq = 0; ieq < neq; ieq++) {
         K[step][ieq] = dt * dyn_func(x_temp, u,args)[ieq];
-    }
-
-
-    //update state
-    for (int ieq = 0; ieq < neq; ieq++) {
-        x_temp[ieq] = x_prev[ieq] + a0 * K[0][ieq] + a1 * K[1][ieq] + a2 * K[2][ieq] + a3 * K[3][ieq];
+        x_temp[ieq] = x_prev[ieq] + RK4[0] * K[0][ieq] + RK4[1]  * K[1][ieq] + RK4[2]  * K[2][ieq] + RK4[3]  * K[3][ieq]; //update state
     }
 
     return x_temp;
