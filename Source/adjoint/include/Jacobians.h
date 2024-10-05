@@ -25,6 +25,7 @@ public:
     CppAD::ADFun<double> F_u(std::array<double, nc> c);
     CppAD::ADFun<double> J_u();
     CppAD::ADFun<double> F_b();
+    CppAD::ADFun<double> J_b();
 
     static void printJacobian(const std::vector<double>& jac, int rows, int columns);
 
