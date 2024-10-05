@@ -6,7 +6,7 @@
 #include "Control.h"
 #include <array>
 #include <iostream>
-
+#include "RK4.h"
 
 
 
@@ -22,14 +22,13 @@ public:
 	bool apply_rolling_resistance = false;
 
 private:
-	const int _neq = 3;
+	static const size_t _neq = 4;
+	static const size_t _nin = 2;
 	const int _nu = 6;
 	double _t0, _dt;
 	int _total_timesteps;
 
-	State _stepRK4(const double t,UAV& uav, const std::array<double, 4>& x_prev, const std::array<double, 2>& u, Control& control);
-	std::array<double, 4> _eom(const std::array<double, 4>& x, const std::array<double, 2>& u, const double mass);
-
+	static std::array<double, 4> _eom(const std::array<double, 4>& x, const std::array<double, 2>& u, const std::array<double, 1>& m);
 
 	StateHistory& _state_history;
 	static const int _timesteps_to_update_screen = 10;

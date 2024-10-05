@@ -17,25 +17,25 @@ int main(){
     p1.setAoaTakeoff(Aerodynamics::deg2rad(aoa_takeoff));
 
 
-    //Prepare Objects for the simulation
-    Aerodynamics aero(p1);
-    StateHistory history;
-    StateSpace sim(history);
-    ControlState control_state;
-    EngineMap engine(EngineMap::P12x6);
-    Control control(engine, p1, maxamps);
+    ////Prepare Objects for the simulation
+    //Aerodynamics aero(p1);
+    //StateHistory history;
+    //StateSpace sim(history);
+    //ControlState control_state;
+    //EngineMap engine(EngineMap::P12x6);
+    //Control control(engine, p1, maxamps);
 
-    //Simulation parameters
-    double t0 = 0; double dt = 0.05; int timesteps = 100;
+    ////Simulation parameters
+    //double t0 = 0; double dt = 0.05; int timesteps = 100;
 
-    //Manuver1: Takeoff
-    control.setControlMode(Control::TAKEOFF);
-    State init_state;
-    sim.setParameters(t0, dt, timesteps);
+    ////Manuver1: Takeoff
+    //control.setControlMode(Control::TAKEOFF);
+    //State init_state;
+    //sim.setParameters(t0, dt, timesteps);
 
-    sim.solve(p1, init_state, control, control_state);
+    //sim.solve(p1, init_state, control, control_state);
 
-    history.printToCsv("sim1");
+    //history.printToCsv("sim1");
 
 
 //    //Manuver 2: Climb

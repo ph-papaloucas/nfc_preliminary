@@ -30,8 +30,11 @@ int main(){
 
     std::cout << "Solving takeof for initial state: " << init_state << std::endl;
     sim.solve(p1, init_state, control, control_state);
+    //sim.solve2(p1, init_state, control, control_state);
 
-    std::cout << history << std::endl;
+
+    history.printToCsv("takeoff_test");
+    //history2.printToCsv("RK4new");
 
     return 0;
 }
