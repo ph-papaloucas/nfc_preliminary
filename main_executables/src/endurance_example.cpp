@@ -5,7 +5,6 @@
 int main(){
     std::cout << "Manuver simulation 1\n"; 
     std::cout << "==================================\n\n\n";
-
     double x_endurance = 5000;
     double ec_specific = 0.5;
     double m_payload = 4;

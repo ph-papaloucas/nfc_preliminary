@@ -10,8 +10,8 @@ option(CLEAR_CACHE "Clear the CMake cache before configuring." OFF) # ON EVERYTI
 option(BUILD_MAIN_EXECUTABLES "Enable the compilation of the main executables files." ON)                # ON/  OFF
 option(BUILD_TESTS "Enable the compilation of the test files." ON)                # ON/  OFF
 option(BUILD_ADJOINT_TESTS "Enable the compilation of the adjoint test files." ON) # ON/  OFF
-set(CMAKE_BUILD_TYPE "Release")
-#set(CMAKE_BUILD_TYPE "Debug")
+#set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 #####################################################################################################
 
 

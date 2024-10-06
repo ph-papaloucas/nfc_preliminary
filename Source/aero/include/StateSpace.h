@@ -24,7 +24,6 @@ public:
 private:
 	static const size_t _neq = 4;
 	static const size_t _nin = 2;
-	const int _nu = 6;
 	double _t0, _dt;
 	int _total_timesteps;
 

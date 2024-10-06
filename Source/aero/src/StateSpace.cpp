@@ -66,14 +66,13 @@ void StateSpace::solve(UAV& uav, State& initial_state, Control& control, Control
 
 
         //solve RK4
-        std::array<double, _neq> x =  stepRK4(_eom, t, _dt, x, u, args);
+        x =  stepRK4(_eom, t, _dt, x, u, args);
         computed_state = State(x, u);
 
 
         //update everything
         t += _dt;
         _state_history.appendState(t, computed_state, control_state);
-        x = computed_state.getStatesArray(); //x is the previous state that will be passed to RK4
 
        //check if it crashed
         if (computed_state.altitude() <= -0.1)

@@ -20,9 +20,14 @@ public:
         TRIM,
     };
 
+    enum TerminationMode{
+        REACH_CEIL
+    };
+
     Control();
     Control(EngineMap engine, const UAV& uav, double max_amps);
     void setControlMode(ControlMode control_mode){_current_control_mode = control_mode;};
+    void setTerminationMode(TerminationMode term_mode){_termination_mode = term_mode;};
 
     std::array<double, 2> getForces(const State &state, ControlState& control_state);
     
@@ -42,6 +47,8 @@ private:
     EngineMap _engine;
     ControlMode _current_control_mode;
     ThrustMode _current_thrust_mode;
+    TerminationMode _termination_mode;
     Aerodynamics _aero;
     UAV _uav;
+    double _ceil = 100;
 };

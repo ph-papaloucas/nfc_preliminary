@@ -21,7 +21,7 @@ double UAV::emptyMass(const UAV& plane){
     return plane._total_mass/2;
 }
 
-const double UAV::getTotalMass(){
+double UAV::getTotalMass() const{
     return _total_mass;
 }
 double UAV::getSurface(){

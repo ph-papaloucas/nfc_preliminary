@@ -34,6 +34,7 @@ int main() {
     std::cout << "Enter du=dw for centrall diff: ";
     std::cin >> du;
     std::vector<double> xv = {0, 0, u, w} ;                // argument value for computing derivative
+    std::array<double, 4> xvarr = {0, 0, u, w} ;                // argument value for computing derivative
     double thrust = engine.thrustOfWindspeedCurrent(sqrt(u*u + w*w), cvars[1]);
     std::array<double, 6> enginecoeffs = engine.getEngineCoeffs();
     std::cout << "theta = " << cvars[0] << "Current = " << cvars[1] << std::endl;
@@ -43,17 +44,15 @@ int main() {
 
 
     //compute Jacobian
-    CppAD::ADFun<double> f;
-    f = j.F_u(cvars);
-    std::vector<double> jac(j.m * j.n); // Jacobian of f (m by n matrix)
 
-
-    jac  = f.Jacobian(xv);      // Jacobian for operation sequence
+    //std::array<std::array<double, 4>, 2> jac = j.F_u(xvarr, cvars);
+    std::vector<double> jac = j.F_u(xvarr, cvars);
     std::cout << "\n";
     std::cout << "Jacobean F_u\n";
     Jacobians::printJacobian(jac, j.m, j.n);
 
     // Central, frond and rear differences in respect to ux
+    CppAD::ADFun<double> f = j.F_u_fun(cvars);
     std::vector<double> jac_central(j.m * j.n);
     std::vector<double> jac_front(j.m * j.n);
     std::vector<double> jac_rear(j.m * j.n);

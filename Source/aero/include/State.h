@@ -79,9 +79,30 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const StateHistory& data);
     void printToCsv(const std::string& filename);
 
-    double getLastTime(){
+    double getStartTime() const{
+        return _time.front();
+    }
+    double getLastTime() const{
         return _time.back();
     }
+
+    State getStateAtTimestep(int timestep) const{
+        return _history[timestep];
+    }
+
+    ControlState getControlStateAtTimestep(int timestep) const{
+        return _control_history[timestep];
+    }
+
+    double getTimeAtTimestep(int timestep) const{
+        return _time[timestep];
+    }
+
+    const size_t getSize() const{
+        return _time.size() - 1;
+    }
+
+
 
 private:
     std::vector<State> _history;

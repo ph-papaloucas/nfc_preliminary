@@ -13,6 +13,8 @@ using DynFunc = std::array<double, neq> (*)(
     const std::array<double, nin>&, 
     const std::array<double, nargs>&);
 
+
+
 /* example of how you should define a function that can be passed to RK4step:*/
 // std::array<double, 4> eom(const std::array<double, 4>& x, const std::array<double, 2>& u, const std::array<double, 1>& args){
 

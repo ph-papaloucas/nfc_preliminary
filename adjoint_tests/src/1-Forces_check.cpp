@@ -27,9 +27,11 @@ int main() {
     //User Input velocity
     double u, w;
     std::cout << "Enter velocity u: ";
-    std::cin >> u;
+    //std::cin >> u;
     std::cout << "Enter velocity w: ";
-    std::cin >> w;
+    //std::cin >> w;
+    u = 5;
+    w = 3;
     std::vector<double> xv = {0, 0, u, w} ;                // argument value for computing derivative
     double thrust = engine.thrustOfWindspeedCurrent(sqrt(u*u + w*w), cvars[1]);
 
@@ -44,7 +46,7 @@ int main() {
     
     // Forces Check:
     std::cout << "\n\n\n======================CHECKINT AERO FORCES: \n\n";
-    f = j.F_u(cvars);
+    f = j.F_u_fun(cvars);
     std::vector<double> F = f.Forward(0, xv);
     std::cout << "Forces = " << F[0] << " " << F[1] << std::endl;
     Aerodynamics aero(uav);
@@ -54,7 +56,7 @@ int main() {
 
     std::cout << "CHANGING THETA AND EVALUATE AGAIN, TO SEE IF ITS REGISTERED\n";
     cvars[0]= 0.15;
-    f = j.F_u(cvars);
+    f = j.F_u_fun(cvars);
     F = f.Forward(0, xv);
     std::cout << "F(theta = " << cvars[0] << ") = " << F[0] << " " << F[1] << std::endl;
     Faero = aero.getAeroForcesEarthframe({xv[2], xv[3]}, cvars[0]);

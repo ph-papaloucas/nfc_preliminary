@@ -17,7 +17,7 @@ public:
 
 
     //getters
-    const double getTotalMass();
+    double getTotalMass() const;
     double getSurface();
     double getCl0();
     double getAR();

@@ -1,6 +1,10 @@
 # Set the include directory
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+
+## Always run library for release:
+#set(CPPAD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/lib/Release/cppad_lib.lib")
+
 # Define the library based on the build type
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(CPPAD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/lib/Debug/cppad_lib.lib")

@@ -1,7 +1,27 @@
 #include "Jacobians.h"
 
+Jacobians::Jacobians()
+:ts(0), tf(0), _u(0){
+    p = {};
+    b = {};
+    AR = 0;
+    S = 0;
+    cl0 = 0;
+    cd0 = 0;
+    e = 0;
+    mass = 0;
+
+}
 Jacobians::Jacobians(UAV uav, std::array<double, 6> p, std::array<double, r> b, double ts, double tf)
 :p(p), b(b), ts(ts), tf(tf), _u(n){
+    // #ifdef DEBUG
+    // if (VERBOSITY_LEVEL >=3){
+    // }
+    // #endif
+
+    _u = {1,1,1,1};
+
+    std::cout<< "Jacobians::Jacobians constructor checks if it recieved UAV stats without a problem\n";
     AR = uav.getAR();
     S = uav.getSurface();
     cl0 = uav.getCl0();
@@ -9,16 +29,40 @@ Jacobians::Jacobians(UAV uav, std::array<double, 6> p, std::array<double, r> b, 
     e = uav.get_e();
     mass = uav.getTotalMass();
 
+    #ifdef DEBUG
+        if (VERBOSITY_LEVEL >=3){
+                // Print the values to the console
+            std::cout << "AR = " << AR << std::endl;
+            std::cout << "S = " << S << std::endl;
+            std::cout << "cl0 = " << cl0 << std::endl;
+            std::cout << "cd0 = " << cd0 << std::endl;
+            std::cout << "e = " << e << std::endl;
+        }
+    #endif
 
-    // Print the values to the console
-    std::cout << "AR = " << AR << std::endl;
-    std::cout << "S = " << S << std::endl;
-    std::cout << "cl0 = " << cl0 << std::endl;
-    std::cout << "cd0 = " << cd0 << std::endl;
-    std::cout << "e = " << e << std::endl;
 }
 
-CppAD::ADFun<double> Jacobians::F_u(std::array<double, nc> c){
+
+//std::array<std::array<double, Jacobians::n>, Jacobians::m> 
+std::vector<double> Jacobians::F_u(std::array<double, n> u, std::array<double, nc> c){
+
+    std::vector<double> uv(u.begin(), u.end()); //needs to be vector to be passsed to jacad.Jacobian
+    CppAD::ADFun<double> fun = F_u_fun(c);
+    std::vector<double>  jacvect = fun.Jacobian(uv);
+
+    return jacvect;// Jacobians::getJacMatrix(jacvect);
+}
+
+//std::array<std::array<double, 1>, Jacobians::n> 
+std::vector<double> Jacobians::J_u(std::array<double, n> u, std::array<double, nc> c){
+    std::vector<double> uv(u.begin(), u.end()); //needs to be vector to be passsed to jacad.Jacobian
+    CppAD::ADFun<double> fun = J_u_fun();
+    std::vector<double>  jacvect = fun.Jacobian(uv);
+
+    return jacvect; //Jacobians::getJacMatrix1(jacvect);
+}
+
+CppAD::ADFun<double> Jacobians::F_u_fun(std::array<double, nc> c){
     // Create state(domain) space vector
     //std::vector< AD<double> > u(n);     // x z u w states // vector of domain space variables
     //u= {0,0,0,0};                           // value at which function is recorded
@@ -27,11 +71,23 @@ CppAD::ADFun<double> Jacobians::F_u(std::array<double, nc> c){
 
     CppAD::Independent(_u);              //declare independent variables and start recording operation sequence
     // Create output(range) space vector
-    // std::vector< AD<double> > F(m);     // (X and Z forces) // vector of ranges space variables 
+    std::vector< AD<double> > F(m);     // (X and Z forces) // vector of ranges space variables 
     // // (Equation of X and Z forces) // Record operation that gives the output space vector
-    // F[0] = _X(u);
-    // F[1] = _Z(u);
-    CppAD::ADFun<double> f(_u, {_X(_u, c), _Z(_u, c)});   // store operation sequence in f: X -> Y and stop recording (x = states/independent vars -> Y = outputs)
+    F[0] = _X(_u, c);
+    F[1] = _Z(_u, c);
+    CppAD::ADFun<double> f(_u, F);   // store operation sequence in f: X -> Y and stop recording (x = states/independent vars -> Y = outputs)
+    return f;  
+}
+
+
+CppAD::ADFun<double> Jacobians::J_u_fun(){
+    // Create state(domain) space vector
+
+    //parameters that change each iteration:
+
+    CppAD::Independent(_u);              //declare independent variables and start recording operation sequence
+
+    CppAD::ADFun<double> f(_u, {_J(_u)});   // store operation sequence in f: X -> Y and stop recording (x = states/independent vars -> Y = outputs)
 
     return f;  
 }
@@ -50,17 +106,6 @@ CppAD::AD<double> Jacobians::_X(const std::vector< AD<double> >& u, std::array<d
     return X1;
 }
 
-CppAD::ADFun<double> Jacobians::J_u(){
-    // Create state(domain) space vector
-
-    //parameters that change each iteration:
-
-    CppAD::Independent(_u);              //declare independent variables and start recording operation sequence
-
-    CppAD::ADFun<double> f(_u, {_J(_u)});   // store operation sequence in f: X -> Y and stop recording (x = states/independent vars -> Y = outputs)
-
-    return f;  
-}
 
 CppAD::AD<double> Jacobians::_Z(const std::vector< AD<double> >& u, std::array<double, nc> c){
     double theta = c[0];
@@ -88,4 +133,35 @@ void Jacobians::printJacobian(const std::vector<double>& jac, int rows_outputs, 
         }
         std::cout << "\n";
     }
+}
+
+void Jacobians::printJacobian(const std::array<std::array<double, n>, m>& jac){
+    for (int row=0; row< Jacobians::m; ++row){
+        for (int col=0; col< Jacobians::n;++col){
+           std::cout << jac[row][col] << ", ";
+        }
+        std::cout << "\n";
+    }
+}
+
+std::array<std::array<double, Jacobians::n>, Jacobians::m> Jacobians::getJacMatrix(const std::vector<double>& jac){
+    std::array<std::array<double, n>, m> matrix;
+    for (int row=0; row< m; ++row){
+        for (int col=0; col<n;++col){
+           matrix[row][col] =  jac[row*n+col];
+        }
+    }
+
+    return matrix;
+}
+
+std::array<std::array<double, 1>, Jacobians::n> Jacobians::getJacMatrix1(const std::vector<double>& jac1){
+        std::array<std::array<double, 1>, n> matrix;
+    for (int row=0; row< m; ++row){
+        for (int col=0; col<1;++col){
+           matrix[row][col] =  jac1[row*n+col];
+        }
+    }
+
+    return matrix;
 }

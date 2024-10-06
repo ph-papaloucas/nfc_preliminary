@@ -3,3 +3,4 @@ build/
 *.csv
 .vscode/
 .vs
+*.ipynb

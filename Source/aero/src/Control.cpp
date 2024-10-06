@@ -59,7 +59,7 @@ std::array<double, 2> Control::getForces(const State &state, ControlState& contr
     std::array<double, 2> velocity = {state.u, state.w};
     _applyControl(control_state, velocity);
 
-    bool apply_ground_effect = true;
+    bool apply_ground_effect = false; //CHANGE ME
     std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset());
     std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, control_state.theta);
     u[0] += thrust_earthaxis[0];
@@ -80,6 +80,13 @@ std::array<double, 2> Control::getForces(const State &state, ControlState& contr
         switch (_current_control_mode){
             case TAKEOFF:
             if (u[1] > 1.3*_uav.getTotalMass())
+                return true;
+            break;
+        }
+
+        switch(_termination_mode){
+            case REACH_CEIL:
+            if (state.z >= _ceil)
                 return true;
             break;
         }
