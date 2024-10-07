@@ -30,8 +30,18 @@ class EngineMap
 	bool validPropeller = true;
 
 
-	double thrustOfWindspeedCurrent(const double &windspeed, const double &current) const;
-	CppAD::AD<double> EngineMap::thrustOfWindspeedCurrent(CppAD::AD<double> windspeed, double current) const;
+	
+	template <typename T>
+	T thrustOfWindspeedCurrent(T windspeed, double current) const
+	{
+		T x = windspeed;
+		double y = current;
+		// coefficients from matlab interpolation witn 95% confidence bounds
+		return p00 + p10 * x + p01 * y + p20 * pow(x, 2) + p11 * x * y +
+			p02 * pow(y, 2);
+	}
+
+
 	double powerOfWindspeedCurrent(double &windspeed, double &current);
 
 	std::array<double, 6> getEngineCoeffs(){

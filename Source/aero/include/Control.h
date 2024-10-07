@@ -32,10 +32,9 @@ public:
     Control();
     Control(EngineMap engine, const UAV& uav, double max_amps);
     
-    //set control for stuff that need polynomyal
-    void setControlMode(ControlMode control_mode, std::array<double, 4> coeffs);
-    //set control for stuff that dont need polynomial
-    void setControlMode(ControlMode control_mode);
+
+    void setControlMode(ControlMode control_mode, std::array<double, 4> coeffs);     //set control for stuff that need polynomyal
+    void setControlMode(ControlMode control_mode);      //set control for stuff that dont need polynomial
 
     //void setControlMode(ControlMode control_mode){_current_control_mode = control_mode;};
     void setTerminationMode(TerminationMode term_mode){_termination_mode = term_mode;};
@@ -45,9 +44,31 @@ public:
     bool checkTermination(const State &state, std::array<double, 2> u);
     void applyBoundaries(std::array<double, 2> &forces, double altitude);
 
+    template <typename T>
+    T getThrust(std::array<T, 2> velocity_bodyframe) const{
+        T vel_wind = velocity_bodyframe[0];
+        T thrust = 0 ;
 
-    double getThrust(std::array<double, 2> bodyframe_velocity) const;
-    CppAD::AD<double> getThrust(std::array<CppAD::AD<double>, 2> bodyframe_velocity) const;
+        switch (_current_thrust_mode){
+            case MAX:
+                thrust =  _engine.thrustOfWindspeedCurrent(vel_wind, _max_amps);
+                break;
+            case THRUST_UNDEFINED:
+                std::cerr << "Error: Undefined thrust mode!" << std::endl;
+                std::exit(EXIT_FAILURE);
+                break;
+            default:
+                std::cerr << "Error: Thrust mode unknown value!" << std::endl;
+                std::exit(EXIT_FAILURE);
+                break;
+        }
+        if (thrust<0){
+            thrust = 0;
+        }
+        return thrust;
+    }
+
+    
 private:
     double _getTheta(std::array<double, 2> velocity, double t, bool apply_ground_effect, double height);
 

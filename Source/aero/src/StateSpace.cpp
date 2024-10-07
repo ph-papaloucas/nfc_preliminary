@@ -50,8 +50,12 @@ void StateSpace::solve(UAV& uav, State& initial_state, Control& control, Control
     while (timestep < _total_timesteps) {
         timestep++;
         //get input
+        if ( (t+_dt > 4.65) && (t+_dt < 4.75) ){
+            std::cout <<"test" << std::endl;
+        }
         
         u = control.getForces(computed_state, control_state, t + _dt);
+
         if (control.checkTermination(computed_state, u)){
             #ifdef DEBUG
                 if (VERBOSITY_LEVEL >=1){

@@ -4,7 +4,7 @@
 #include <vector>          // standard vector
 #include <array>
 #include <cppad/cppad.hpp>
-
+#include <Aerodynamics.h>
 #define _USE_MATH_DEFINES
 #include "math.h"
 using CppAD::AD; //use AD as abbreviation for CppAD::AD
@@ -39,11 +39,13 @@ public:
     static std::array<std::array<double, n>, m> getJacMatrix(const std::vector<double>& jac);
     static std::array<std::array<double, 1>, n> getJacMatrix1(const std::vector<double>& jac);
 
+
 private:
     std::array<double, r> b; 
     std::array<double, 6> p; //coefficients from engine map
-    CppAD::AD<double> _X(const std::vector< AD<double> >& u, std::array<double, nc> c);
-    CppAD::AD<double> _Z(const std::vector< AD<double> >& u, std::array<double, nc> c);
+    // CppAD::AD<double> _X(const std::vector< AD<double> >& u, std::array<double, nc> c);
+    CppAD::AD<double> _getThrust(const std::vector< AD<double> >& u, std::array<double, nc> c);
+    // CppAD::AD<double> _Z(const std::vector< AD<double> >& u, std::array<double, nc> c);
     CppAD::AD<double> _J(const std::vector< AD<double> >& u);
 
  
@@ -52,10 +54,14 @@ private:
     std::vector< AD<double> > _u;
     //std::vector< AD<double> > _b;
     double ts, tf;
-    double S, AR, cl0, cd0, e, mass;
+    double mass;
+    //double S, AR, cl0, cd0, e, mass;
     double rho = 1.225;
 
 
     double _tiny = 1e-6;
     const double g = 9.81;
+
+    Aerodynamics _aero;
+    UAV _uav;
 };
