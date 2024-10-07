@@ -9,7 +9,6 @@
 
 #include <cppad/cppad.hpp>
 using CppAD::AD; 
-
 class Control {
 public:
 
@@ -68,7 +67,7 @@ public:
         return thrust;
     }
 
-    
+
 private:
     double _getTheta(std::array<double, 2> velocity, double t, bool apply_ground_effect, double height);
 
@@ -83,6 +82,6 @@ private:
     Aerodynamics _aero;
     UAV _uav;
     static const size_t _n_coeffs = 4;
-    Poly<_n_coeffs> _poly;
+    Poly<double, _n_coeffs> _poly;
     double _ceil = 100;
 };

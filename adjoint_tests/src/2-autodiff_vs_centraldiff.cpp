@@ -81,7 +81,7 @@ int main() {
     jac_rear[j.m*jindex + jindex] = (F[1] - Frear[1])/(du);
 
 
-    double iz = 1; // index for 2nd equation Z
+    size_t iz = 1; // index for 2nd equation Z
     //z
     jindex = 1;
     xv_temp = {xv[0], xv[1] + du, xv[2], xv[3]};

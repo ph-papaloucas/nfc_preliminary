@@ -1,21 +1,20 @@
 #pragma once
 
-
-template <size_t deg = 0> //deg = degree of polynomial
+template < typename T, size_t deg = 0> //deg = degree of polynomial
 class Poly
 {
 public:
     Poly():_coeffs({}){};
-    Poly(std::array<double, deg> polynomial_coefficients):_coeffs(polynomial_coefficients){};
+    Poly(std::array<T, deg> polynomial_coefficients):_coeffs(polynomial_coefficients){};
 
 
-    std::array<double, deg> getCoefficients(){
+    std::array<T, deg> getCoefficients(){
         return _coeffs;
     }
 
 
-    double getValue(double x){
-        double value = 0;
+    T getValue(T x){
+        T value = 0;
         for (int i=0; i < deg; ++i){
             value+=_coeffs[i]*pow(x, i);
         }
@@ -23,6 +22,6 @@ public:
     }
 
 private:
-    std::array<double, deg> _coeffs;
+    std::array<T, deg> _coeffs;
 
 };

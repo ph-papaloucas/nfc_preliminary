@@ -7,7 +7,7 @@ Control::Control(EngineMap engine, const UAV& uav, double max_amps):_engine(engi
 void Control::setControlMode(ControlMode control_mode, std::array<double, 4> coeffs){
     if (control_mode == THETA){
         _current_control_mode = control_mode;
-        _poly = Poly<_n_coeffs>(coeffs);
+        _poly = Poly<double, _n_coeffs>(coeffs);
     }
     else{
         throw std::invalid_argument("Invalid control mode set. Use the appropriate setControlMode method which does NOT ask for a polynomial");

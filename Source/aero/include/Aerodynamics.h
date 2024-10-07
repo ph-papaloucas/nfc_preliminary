@@ -54,7 +54,7 @@ public:
 
     //Overload 2, if you dont want to explicitly tell it to not apply ground effect
         std::array<double, 2> Aerodynamics::getAeroForcesEarthframe(std::array<double, 2> velocity, double theta){
-        std::vector<double> forces = getAeroForcesEarthframeVector(velocity, theta, false, 0);
+        std::vector<double> forces = getAeroForcesEarthframeVector(velocity, theta, false, 0e0);
         return {forces[0], forces[1]};
     }
 

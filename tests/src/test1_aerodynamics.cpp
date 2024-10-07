@@ -34,43 +34,43 @@ int main(){
     std::cout << "Check aoa resulting from wind angle \n";
     velocity = {-1, 0};
     std::cout << "< velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
     std::cout << std::endl;
     velocity = {0, 1};
     std::cout << "^ velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
     velocity = {1, 0};
     std::cout << "> velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
     velocity = {0, -1};
     std::cout << "velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
 
     velocity = {-1, -1};
     std::cout << "< velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
     velocity = {-1, 1};
     std::cout << "^ velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
     velocity = {1, 1};
     std::cout << "> velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
     velocity = {1, -1};
     std::cout << "velocity = " << velocity[0] << " " << velocity[1] << std::endl;
-    a = aero._getAoa1(velocity);
+    a = aero.getAoa1(velocity);
 std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
         std::cout << std::endl;
 
@@ -104,9 +104,9 @@ std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
 
 
     velocity = {velocity_norm  ,0};
-    theta = aero.getThetaForTrim(velocity, control);
+    theta = aero.getThetaForTrim(velocity, control, false, 0e0);
     printStuff(theta, velocity);
-    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::_getAoa1(velocity)) << std::endl;
+    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::getAoa1(velocity)) << std::endl;
     F = aero.getAeroForcesEarthframe(velocity, theta);
     printForce(F);
     thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
@@ -114,18 +114,18 @@ std::cout << "a = " << Aerodynamics::deg2rad(a) << "[deg]\n";
 
 
     velocity = {sqrt(pow(velocity_norm, 2)/2),sqrt(pow(velocity_norm, 2)/2)};
-    theta = aero.getThetaForTrim(velocity, control);
+    theta = aero.getThetaForTrim(velocity, control, false, 0e0);
     printStuff(theta, velocity);
-    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::_getAoa1(velocity)) << std::endl;
+    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::getAoa1(velocity)) << std::endl;
     F = aero.getAeroForcesEarthframe(velocity, theta);
     printForce(F);
     thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
     std::cout << " Fztotal = " << F[1] - p1.getTotalMass()*9.81 + thrust*sin(theta) << std::endl;
 
     velocity = {sqrt(pow(velocity_norm, 2)/2),-sqrt(pow(velocity_norm, 2)/2)};
-    theta = aero.getThetaForTrim(velocity, control);
+    theta = aero.getThetaForTrim(velocity, control, false, 0e0);
     printStuff(theta, velocity);
-    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::_getAoa1(velocity)) << std::endl;
+    std::cout << "aoa = " << Aerodynamics::rad2deg(Aerodynamics::getAoa1(velocity)) << std::endl;
     F = aero.getAeroForcesEarthframe(velocity, theta);
     printForce(F);
     thrust = control.getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, theta));
