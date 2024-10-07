@@ -3,7 +3,7 @@
 Control::Control():_max_amps(0), _current_thrust_mode(MAX){};
 Control::Control(EngineMap engine, const UAV& uav, double max_amps):_engine(engine),_uav(uav), _aero(uav), _max_amps(max_amps), _current_thrust_mode(MAX){};
 
-    //set control for stuff that need polynomyal
+//set control for stuff that need polynomyal
 void Control::setControlMode(ControlMode control_mode, std::array<double, 4> coeffs){
     if (control_mode == THETA){
         _current_control_mode = control_mode;

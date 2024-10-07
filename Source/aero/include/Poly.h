@@ -23,5 +23,4 @@ public:
 
 private:
     std::array<T, deg> _coeffs;
-
 };

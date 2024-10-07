@@ -9,6 +9,9 @@
 
 #include <cppad/cppad.hpp>
 using CppAD::AD; 
+
+
+
 class Control {
 public:
 
@@ -31,7 +34,6 @@ public:
     Control();
     Control(EngineMap engine, const UAV& uav, double max_amps);
     
-
     void setControlMode(ControlMode control_mode, std::array<double, 4> coeffs);     //set control for stuff that need polynomyal
     void setControlMode(ControlMode control_mode);      //set control for stuff that dont need polynomial
 
@@ -82,6 +84,7 @@ private:
     Aerodynamics _aero;
     UAV _uav;
     static const size_t _n_coeffs = 4;
+
     Poly<double, _n_coeffs> _poly;
     double _ceil = 100;
 };
