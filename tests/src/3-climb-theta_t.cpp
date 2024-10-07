@@ -20,19 +20,19 @@ int main(){
     StateHistory history;
     StateSpace sim(history);
     sim.setParameters(0, 0.1, 100);
-    State init_state({0, 0, 8, 3}, {0, 0});
+    State init_state({0, 0, 20, 0}, {0, 0});
     ControlState control_state;
     EngineMap engine(EngineMap::P12x6);
 
 
     Control control(engine, p1, 30);
-    control.setControlMode(Control::TRIM_GAMMA);
+    control.setControlMode(Control::THETA, {Aerodynamics::deg2rad(0), 0, 0, 0});
     control.setTerminationMode(Control::REACH_CEIL);
 
 
     std::cout << "Solving climb for initial state: " << init_state << std::endl;
     sim.solve(p1, init_state, control, control_state);
  
-    history.printToCsv("climb1");
+    history.printToCsv("climb_theta_t");
     return 0;
 }

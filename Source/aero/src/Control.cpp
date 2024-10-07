@@ -3,6 +3,25 @@
 Control::Control():_max_amps(0), _current_thrust_mode(MAX){};
 Control::Control(EngineMap engine, const UAV& uav, double max_amps):_engine(engine),_uav(uav), _aero(uav), _max_amps(max_amps), _current_thrust_mode(MAX){};
 
+    //set control for stuff that need polynomyal
+void Control::setControlMode(ControlMode control_mode, std::array<double, 4> coeffs){
+    if (control_mode == THETA){
+        _current_control_mode = control_mode;
+        _poly = Poly<_n_coeffs>(coeffs);
+    }
+    else{
+        throw std::invalid_argument("Invalid control mode set. Use the appropriate setControlMode method which does NOT ask for a polynomial");
+    }
+};
+//set control for stuff that dont need polynomial
+void Control::setControlMode(ControlMode control_mode){
+    if (control_mode != THETA)
+        _current_control_mode = control_mode;
+    else{
+        throw std::invalid_argument("Invalid control mode set. Use the appropriate setControlMode method which asks for a polynomial");
+    }
+}
+
 double Control::getThrust(std::array<double, 2> velocity_bodyframe) const{
     double vel_wind = velocity_bodyframe[0];
     double thrust = 0 ;
@@ -26,7 +45,32 @@ double Control::getThrust(std::array<double, 2> velocity_bodyframe) const{
     }
     return thrust;
 }
-double Control::_getTheta(std::array<double, 2> velocity){
+
+CppAD::AD<double> Control::getThrust(std::array<CppAD::AD<double>, 2> velocity_bodyframe) const{
+    CppAD::AD<double> vel_wind = velocity_bodyframe[0];
+    CppAD::AD<double> thrust = 0 ;
+
+    switch (_current_thrust_mode){
+        case MAX:
+            thrust =  _engine.thrustOfWindspeedCurrent(vel_wind, _max_amps);
+            break;
+        case THRUST_UNDEFINED:
+            std::cerr << "Error: Undefined thrust mode!" << std::endl;
+            std::exit(EXIT_FAILURE);
+            break;
+        default:
+            std::cerr << "Error: Thrust mode unknown value!" << std::endl;
+            std::exit(EXIT_FAILURE);
+            break;
+
+    }
+    if (thrust<0){
+        thrust = 0;
+    }
+    return thrust;
+}
+
+double Control::_getTheta(std::array<double, 2> velocity, double t, bool apply_ground_effect, double height){
     double theta = 0;
     #ifdef DEBUG
         if(VERBOSITY_LEVEL>=3){
@@ -41,38 +85,40 @@ double Control::_getTheta(std::array<double, 2> velocity){
             theta =  _uav.getAoaTakeoff();
             break;
         case TRIM_GAMMA:
-            theta = _aero.getThetaForTrim(velocity, *(this));
+            theta = _aero.getThetaForTrim(velocity, *(this), apply_ground_effect, height);
+            break;
+        case THETA:
+            theta = _poly.getValue(t);
             break;
 
     }
     return theta;
 }
 
-void Control::_applyControl(ControlState &control_state, std::array<double,2 > velocity){
-    control_state.theta = _getTheta(velocity);
+void Control::_applyControl(ControlState &control_state, std::array<double,2 > velocity, double t, bool apply_ground_effect, double height){
+    control_state.theta = _getTheta(velocity, t, apply_ground_effect, height);
     control_state.thrust = getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.theta));
 
 
 }
 
-std::array<double, 2> Control::getForces(const State &state, ControlState& control_state){
+std::array<double, 2> Control::getForces(const State &state, ControlState& control_state, double t){
     std::array<double, 2> velocity = {state.u, state.w};
-    _applyControl(control_state, velocity);
-
     bool apply_ground_effect = false; //CHANGE ME
+    _applyControl(control_state, velocity, t, apply_ground_effect, state.z + _uav.getWheelOffset());
+
     std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset());
-    std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, control_state.theta);
+    std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, -control_state.theta);
     u[0] += thrust_earthaxis[0];
     u[1] += thrust_earthaxis[1];
 
-    //_applyGroundEffect(u);
     return u;
 }
 
     void Control::applyBoundaries(std::array<double, 2> &forces, double altitude){
         
         if ( (forces[1] < _uav.getTotalMass()*9.81) && (altitude < 0.01) && (_current_control_mode == TAKEOFF)){
-            forces[1] = 0e0;
+            forces[1] = _uav.getTotalMass()*9.81;
         }
     }
 

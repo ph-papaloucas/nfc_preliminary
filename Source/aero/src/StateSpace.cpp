@@ -17,7 +17,7 @@ std::array<double, 4> StateSpace::_eom(const std::array<double, 4>& x, const std
     xdot[0] = x[2];
 	xdot[1] = x[3];
 	xdot[2] = u[0] / m[0];
-	xdot[3] = u[1] / m[0];
+	xdot[3] = u[1] / m[0] - 9.81;
 
     return xdot;
 }
@@ -51,7 +51,7 @@ void StateSpace::solve(UAV& uav, State& initial_state, Control& control, Control
         timestep++;
         //get input
         
-        u = control.getForces(computed_state, control_state);
+        u = control.getForces(computed_state, control_state, t + _dt);
         if (control.checkTermination(computed_state, u)){
             #ifdef DEBUG
                 if (VERBOSITY_LEVEL >=1){

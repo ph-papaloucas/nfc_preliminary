@@ -3,6 +3,10 @@
 #include "cmath"
 #include <iostream>
 #include <array>
+
+#include <cppad/cppad.hpp>
+using CppAD::AD; 
+
 class EngineMap
 {
   public:
@@ -27,6 +31,7 @@ class EngineMap
 
 
 	double thrustOfWindspeedCurrent(const double &windspeed, const double &current) const;
+	CppAD::AD<double> EngineMap::thrustOfWindspeedCurrent(CppAD::AD<double> windspeed, double current) const;
 	double powerOfWindspeedCurrent(double &windspeed, double &current);
 
 	std::array<double, 6> getEngineCoeffs(){

@@ -17,7 +17,7 @@ set(CMAKE_BUILD_TYPE "Debug")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DDEBUG)
-    add_definitions(-DVERBOSITY_LEVEL=-1)  # Set verbosity level for Debug builds
+    add_definitions(-DVERBOSITY_LEVEL=2)  # Set verbosity level for Debug builds
 endif()
 
 

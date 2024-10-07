@@ -2,6 +2,8 @@
 #include "UAV.h"
 #include "State.h"
 #include <array>
+#include <cppad/cppad.hpp>
+using CppAD::AD; 
 
 #include <cmath>
 
@@ -14,7 +16,7 @@ public:
 
     AeroState getCruiseState(double velocity);
 
-    double getThetaForTrim(std::array<double, 2> velocity,const Control& control);
+    double getThetaForTrim(std::array<double, 2> velocity,const Control& control, bool apply_ground_effect, double height);
 
 
     //std::array<double, 2> getForcesBodyframe(std::array<double, 2> velocity_bodyframe);
@@ -23,6 +25,7 @@ public:
     std::array<double, 2> getCoeffs(std::array<double, 2> velocity, double theta, bool apply_ground_effect, double height);
 
 
+    static std::array<CppAD::AD<double>, 2> rotateFromEarth2Bodyframe(std::array<double, 2> vector, CppAD::AD<double> theta);
     static std::array<double, 2> rotateFromEarth2Bodyframe(std::array<double, 2> vector, double theta);
     static std::array<double,2 > rotateFromWind2Earthframe(std::array<double, 2> vector, std::array<double, 2> velocity_vector);
     static std::array<double, 2> rotateFromBody2Earthframe(std::array<double, 2> vector, double theta);
@@ -32,4 +35,8 @@ public:
 private:
     double _qinf(double velocity);
     UAV _uav;
+    CppAD::AD<double> _Z(
+        const std::vector< AD<double> >& th, std::array<double, 2> velocity, 
+        bool apply_ground_effect, double height,
+        const Control& control);
 };

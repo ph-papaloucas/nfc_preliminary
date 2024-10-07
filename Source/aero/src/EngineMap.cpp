@@ -84,6 +84,15 @@ double EngineMap::thrustOfWindspeedCurrent(const double &windspeed, const double
 		   p02 * pow(y, 2);
 }
 
+CppAD::AD<double> EngineMap::thrustOfWindspeedCurrent(CppAD::AD<double> windspeed, double current) const
+{
+	CppAD::AD<double> x = windspeed;
+	double y = current;
+	// coefficients from matlab interpolation witn 95% confidence bounds
+	return p00 + p10 * x + p01 * y + p20 * pow(x, 2) + p11 * x * y +
+		   p02 * pow(y, 2);
+}
+
 double EngineMap::powerOfWindspeedCurrent(double &windspeed, double &current)
 {
 	double x = windspeed;
