@@ -69,12 +69,14 @@ public:
 
 
 private:
+    bool apply_ground_effect = false; //CHANGE ME
     double _getTheta(std::array<double, 2> velocity, double t, bool apply_ground_effect, double height);
 
     void _applyControl(ControlState &control_state, std::array<double,2 > velocity, double t, bool apply_ground_effect, double height);
 
     
     double _max_amps;
+    const double _max_theta = Aerodynamics::deg2rad(50);
     EngineMap _engine;
     ControlMode _current_control_mode;
     ThrustMode _current_thrust_mode;

@@ -9,6 +9,10 @@
 
 
 class AdjointStateSpace {
+private:
+	static const size_t _neq = 4;
+	static const size_t _nin = 2;
+	static const size_t _nb = 4;
 public:
 	static const size_t nargs = 13;
 
@@ -18,11 +22,12 @@ public:
 	StateHistory& adjoint_state_history, Jacobians& jac);
 
 	void solveAdjoint();
-	
 
+
+	std::array<double, _nb> getAdjointSensitivities();
+	
+	double evaluateLossFunctional();
 private:
-	static const size_t _neq = 4;
-	static const size_t _nin = 2;
 
 	static std::array<double, 4> _adjoint_eom(
 const std::array<double, 4>& x_adjoint, const std::array<double, 2>& cvars, const std::array<double, nargs>& args);

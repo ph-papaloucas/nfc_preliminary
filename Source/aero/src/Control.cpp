@@ -36,9 +36,18 @@ double Control::_getTheta(std::array<double, 2> velocity, double t, bool apply_g
             break;
         case TRIM_GAMMA:
             theta = _aero.getThetaForTrim(velocity, *(this), apply_ground_effect, height);
+            if (abs(theta) > _max_theta){
+                //throw std::runtime_error("Theta exceeds the maximum allowed value");
+                theta = _max_theta;
+            }
+
             break;
         case THETA:
             theta = _poly.getValue(t);
+            if (abs(theta) > _max_theta){
+                //throw std::runtime_error("Theta exceeds the maximum allowed value");
+                theta = _max_theta;
+            }
             break;
 
     }
@@ -54,7 +63,6 @@ void Control::_applyControl(ControlState &control_state, std::array<double,2 > v
 
 std::array<double, 2> Control::getForces(const State &state, ControlState& control_state, double t){
     std::array<double, 2> velocity = {state.u, state.w};
-    bool apply_ground_effect = true; //CHANGE ME
     _applyControl(control_state, velocity, t, apply_ground_effect, state.z + _uav.getWheelOffset());
 
     std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset());

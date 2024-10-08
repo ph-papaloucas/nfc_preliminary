@@ -41,23 +41,8 @@ int main(){
     std::cout << "Solving Primal for initial state: " << init_state << std::endl;
     sim.solve(p1, init_state, control, control_state);
  
-    history_primal.printToCsv("climb_primal");
+    history_primal.printToCsv("climb2_primal");
 
-
-    /* If you want to check only some timesteps, uncoment this */
-    /////////////////////////////////////////////////////////////
-    // StateHistory history_primal2;
-    // int timesteps = 4 ;
-    // history_primal2.prepareHistoryMatrix(
-    //     timesteps, history_primal.getStartTime(), history_primal.getStateAtTimestep(0), history_primal.getControlStateAtTimestep(0));
-
-    // for (int i=0; i <4; ++i){
-    //     history_primal2.appendState(history_primal.getTimeAtTimestep(i + 1),
-    //     history_primal.getStateAtTimestep(i + 1), 
-    //     history_primal.getControlStateAtTimestep(i + 1));
-    // }
-    // history_primal = history_primal2;
-    ////////////////////////////////////////////////////////////
 
     // // Solve Adjoint
     StateHistory history_adjoint;
@@ -65,7 +50,35 @@ int main(){
     //AdjointStateSpace adjsim(p1, history_primal, history_adjoint, jac);
     AdjointStateSpace adjsim(p1, history_primal, history_adjoint, jac);
     adjsim.solveAdjoint();
-    history_adjoint.printToCsv("climb_adjoint");
+    history_adjoint.printToCsv("climb2_adjoint");
+
+
+
+
+    std::cout << " CHECK MATRIX MULTIPLICATION INSIDE JACOBIAN\n";
+    std::vector<double> jactest =  {1, 2, 3, 4,
+        5,6,7,8};
+    std::array<double, 4> vect = {1, 2, 3, 4};
+
+    std::vector<double> value = Jacobians::multiplyJacWithVect(jactest, vect);
+    std::cout << "jac x vect \n";
+    std::cout << value[0] << "should be = 30\n";
+    std::cout << value[1] << "should be = 70\n";
+
+
+    std::vector<double> value2 = Jacobians::multiplyVectWithJac(vect, jactest);
+    std::cout << "vect x jac \n";
+    std::cout << value2[0] << "should be = 50\n";
+    std::cout << value2[1] << "should be = 60\n";
+
+    std::array<double, 4> sens = adjsim.getAdjointSensitivities();
+
+
+
+
+
+
+
 
 
     return 0;

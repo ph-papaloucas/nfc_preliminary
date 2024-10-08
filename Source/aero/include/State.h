@@ -28,6 +28,10 @@ public:
     ControlState();
     ControlState(double theta, double thrust);
 
+    std::array<double, 2> getControlStatesArray(){
+        return {theta, thrust};
+    }
+
     double theta;
     double thrust;
 };
@@ -89,6 +93,7 @@ public:
     State getStateAtTimestep(int timestep) const{
         return _history[timestep];
     }
+
 
     ControlState getControlStateAtTimestep(int timestep) const{
         return _control_history[timestep];

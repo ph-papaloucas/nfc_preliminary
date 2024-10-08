@@ -27,12 +27,7 @@ std::array<double, 2> Aerodynamics::rotateFromBody2Earthframe(std::array<double,
             -sin(theta)*vector[0] + cos(theta)*vector[1]};
 
 }
-std::array<double,2 > Aerodynamics::rotateFromWind2Earthframe(std::array<double, 2> vector, std::array<double, 2> velocity){
-    double a1 = getAoa1(velocity);
-    double theta = -a1; //because a1 is negative (see aerodynamic aoa positive)
-    return {cos(theta)*vector[0] + sin(theta)*vector[1],
-            -sin(theta)*vector[0] + cos(theta)*vector[1]};
-}
+
 
 double Aerodynamics::rad2deg(double rad){
     return rad*180/M_PI;
@@ -44,31 +39,6 @@ double Aerodynamics::deg2rad(double deg){
 
 
 
-std::array<double, 2> Aerodynamics::getCoeffs(std::array<double, 2> velocity, double theta, bool apply_ground_effect, double height){
-    double aoa = theta + getAoa1(velocity);
-    double cl = 2*M_PI*aoa - _uav.getCl0();
-    if (apply_ground_effect){
-        double cl_increase_factor = ground_effect_cl_increase_factor(height, _uav.getWingspan(), _uav.getAR());
-        cl = cl_increase_factor * cl;
-        
-        #ifdef DEBUG
-        if(VERBOSITY_LEVEL >=4)
-            std::cout << "Ground effect: " << "height = " << height << "cl_increase_factor = " << cl_increase_factor << std::endl;
-        #endif
-    }
-    double cd = _uav.getCd0() + pow(cl,2)/(2*M_PI*_uav.getAR()*_uav.get_e());
-
-    #ifdef DEBUG
-        if(VERBOSITY_LEVEL >=3){
-            std::cout << "velocity = " << velocity[0] << " " <<velocity[1] << std::endl;
-            std::cout << "aoa  = " << Aerodynamics::rad2deg(aoa) << " [deg]" << std::endl;
-            std::cout << " cl = " << cl << "  cd = " << cd <<std::endl;
-        }
-    #endif
-
-
-    return{cl, cd};
-}
 
 double Aerodynamics::getThetaForTrim(std::array<double, 2> velocity,const Control& control, bool apply_ground_effect, double height){
     // //prepare CppAd Fun and independent var

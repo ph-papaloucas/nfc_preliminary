@@ -1,5 +1,5 @@
 #include "AdjointStateSpace.h"
-
+#include "trapz_step.h"
 
 AdjointStateSpace::AdjointStateSpace(
     const UAV& uav,
@@ -50,9 +50,6 @@ const std::array<double, 4>& x_adjoint, const std::array<double, 2>& cvars, cons
     i = 3;
 	xdot_adjoint[i] = - x_adjoint[1] - (1/args[0])*(x_adjoint[2]*F_u[0][i] + x_adjoint[3]*F_u[1][i]) + J_u[i];
 
-    for (int i=0; i < 4; ++i){
-        //std::cout << xdot_adjoint[i] << std::endl;
-    }
     
 
     return xdot_adjoint;
@@ -83,7 +80,6 @@ void AdjointStateSpace::solveAdjoint(){
 
 
     while (current_timestep > 0){
-        std::cout <<"timestep = " << current_timestep << std::endl;
         t = _primal_state_history.getTimeAtTimestep(current_timestep - 1);
         double dt = t-tprev;
         std::array<double, _nin> cvars = {cstate.theta, cstate.thrust};
@@ -122,6 +118,127 @@ void AdjointStateSpace::solveAdjoint(){
         tprev = t;
 
     }
-    std::cout << "test " << std::endl;
 
+}
+
+
+std::array<double, AdjointStateSpace::_nb> AdjointStateSpace::getAdjointSensitivities(){
+    int timesteps = _primal_state_history.getSize();
+    double ts = _primal_state_history.getStartTime();
+    double tf = _primal_state_history.getLastTime();
+
+    int prim_timestep = 0;
+    int adj_timestep = timesteps;
+
+
+    std::array<double, _nb> integral_Jb = {};
+    std::array<double, _nb> integral_Rb_xadj = {};
+
+    int t0;
+    int t1 = ts;
+
+    std::array<double, _neq> x_adj_0 = {};
+    std::array<double, _neq> x_prim_0 = {};
+    std::array<double, _neq> x_adj_1 = (_adjoint_state_history.getStateAtTimestep(adj_timestep)).getStatesArray();
+    std::array<double, _neq> x_prim_1 = (_primal_state_history.getStateAtTimestep(prim_timestep)).getStatesArray();
+
+    std::array<double, _nin> control_0= {};
+    std::array<double, _nin> control_1 = (_primal_state_history.getControlStateAtTimestep(prim_timestep)).getControlStatesArray();
+    
+
+    std::vector<double> Jb_0(_nb);
+    std::vector<double> Jb_1 = _jac.J_b(x_prim_1, control_1, t1);
+
+    std::vector<double> Rbtemp(_neq*_nin);
+    Rbtemp = _jac.R_b(x_prim_1, control_1, t1);
+    std::vector<double> Rb_xadj_0(_nb);
+    std::vector<double> Rb_xadj_1(_nb);
+    //Rb_xadj_1 = Jacobians::multiplyJacWithVect(Rbtemp,  x_adj_1);
+
+    Rb_xadj_1 = Jacobians::multiplyVectWithJac(x_adj_1, Rbtemp);
+    
+    while (prim_timestep<timesteps){
+        //assign previous timestep values
+        t0 = t1;
+        x_adj_0 = x_adj_1;
+        x_prim_0 = x_prim_1;
+        control_0 = control_1;
+        Jb_0 = Jb_1;
+        Rb_xadj_0 = Rb_xadj_1;
+
+        //assign next timestep values
+        t1 = _primal_state_history.getTimeAtTimestep(prim_timestep + 1);
+
+        x_adj_1 = (_adjoint_state_history.getStateAtTimestep(adj_timestep - 1)).getStatesArray();
+        x_prim_1 = (_primal_state_history.getStateAtTimestep(prim_timestep + 1)).getStatesArray();
+
+
+        control_1 = (_primal_state_history.getControlStateAtTimestep(prim_timestep + 1)).getControlStatesArray();
+
+        Jb_1 = _jac.J_b(x_prim_1, control_1, t1);
+
+
+        Rbtemp = _jac.R_b(x_prim_1, control_1, t1); //4x4
+        //Rb_xadj_1 = Jacobians::multiplyJacWithVect(Rbtemp,  x_adj_1); //4x1
+        Rb_xadj_1 = Jacobians::multiplyVectWithJac(x_adj_1, Rbtemp); //1x4
+
+
+        for (int i=0; i < _nb; ++i){
+            integral_Jb[i] += trapz({static_cast<double>(t0), static_cast<double>(t1)}, {Jb_0[i], Jb_1[i]});
+            integral_Rb_xadj[i] += trapz({static_cast<double>(t0), static_cast<double>(t1)}, {Rb_xadj_0[i], Rb_xadj_1[i]});
+        }
+
+
+        prim_timestep++;
+        adj_timestep--;
+    }
+
+    std::array<double, _nb> dJdb;
+    for (int i=0; i < _nb; ++i){
+        dJdb[i] = integral_Jb[i] + integral_Rb_xadj[i];
+    }
+
+
+    return dJdb;
+}
+
+double AdjointStateSpace::evaluateLossFunctional(){
+    int timesteps = _primal_state_history.getSize();
+    double ts = _primal_state_history.getStartTime();
+    double tf = _primal_state_history.getLastTime();
+
+    int timestep = 0;
+    int t0;
+    int t1 = ts;
+    std::array<double, _neq> x_prim_0 = {};
+    std::array<double, _neq> x_prim_1 = (_primal_state_history.getStateAtTimestep(timestep)).getStatesArray();
+
+
+    double J0 = 0;
+    double J1 = _jac.evaluateLossFunction(x_prim_1);
+
+    double integral_J = 0;
+    while (timestep<timesteps){
+        //assign previous timestep values
+        t0 = t1;
+        x_prim_0 = x_prim_1;
+        J0 = J1;
+
+        //assign next timestep values
+        t1 = _primal_state_history.getTimeAtTimestep(timestep + 1);
+
+        x_prim_1 = (_primal_state_history.getStateAtTimestep(timestep + 1)).getStatesArray();
+
+
+        J1 = _jac.evaluateLossFunction(x_prim_1);
+
+
+        integral_J += trapz({static_cast<double>(t0), static_cast<double>(t1)}, {J0, J1});
+        
+
+
+        timestep++;
+    }
+
+    return integral_J;
 }
