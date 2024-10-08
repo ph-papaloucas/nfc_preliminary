@@ -1,0 +1,10 @@
+^C:\PROJECTS\NFC_PRELIMINARY\..BUILD\CMAKEFILES\32CD20531A5EA06D50C843FA5ADC3EA7\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/projects/nfc_preliminary -BC:/projects/nfc_preliminary/..build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/projects/nfc_preliminary/..build/nfc_preliminary.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

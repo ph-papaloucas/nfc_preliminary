@@ -1,0 +1,1488 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						4,
+						5,
+						6
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						13,
+						14
+					]
+				},
+				{
+					"build" : "externals/cppad",
+					"jsonFile" : "directory-externals.cppad-Debug-49d1ee7f6f730645d865.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "externals/cppad"
+				},
+				{
+					"build" : "Source",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-Source-Debug-93ebefb0dc4084c9ccf4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Source",
+					"targetIndexes" : 
+					[
+						15,
+						22
+					]
+				},
+				{
+					"build" : "Source/adjoint",
+					"jsonFile" : "directory-Source.adjoint-Debug-7ba05fc20467c5233c05.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "Source/adjoint",
+					"targetIndexes" : 
+					[
+						16
+					]
+				},
+				{
+					"build" : "main_executables",
+					"jsonFile" : "directory-main_executables-Debug-8b7ca59fb03087a36188.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "main_executables",
+					"targetIndexes" : 
+					[
+						19,
+						20,
+						21,
+						23
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-Debug-70e4927a02b591d5c1f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						4,
+						6,
+						7,
+						10,
+						17,
+						18,
+						24,
+						25
+					]
+				},
+				{
+					"build" : "adjoint_tests",
+					"jsonFile" : "directory-adjoint_tests-Debug-fbbf7b32b7357109cf4a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "adjoint_tests",
+					"targetIndexes" : 
+					[
+						1,
+						3,
+						5,
+						8,
+						9,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					],
+					"name" : "nfc_preliminary",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "0-rotations::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-0-rotations-Debug-8c60b995a76cdb69d658.json",
+					"name" : "0-rotations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "1-Forces_check::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-1-Forces_check-Debug-0a80cbccde6aa0c812db.json",
+					"name" : "1-Forces_check",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "1-takeoff::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-1-takeoff-Debug-6e07d18997150dc1ed9e.json",
+					"name" : "1-takeoff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "2-autodiff_vs_centraldiff::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-2-autodiff_vs_centraldiff-Debug-49563df1ca1e6ea11046.json",
+					"name" : "2-autodiff_vs_centraldiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "2-climb_const_gamma::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-2-climb_const_gamma-Debug-1d0a9139a6c15e48135e.json",
+					"name" : "2-climb_const_gamma",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "3-Primal-Adjoint-run::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-3-Primal-Adjoint-run-Debug-42000212aa59cc290f91.json",
+					"name" : "3-Primal-Adjoint-run",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "3-climb-theta_t::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-3-climb-theta_t-Debug-2f2edfa7aff14ad5de78.json",
+					"name" : "3-climb-theta_t",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "4-control-thrust::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-4-control-thrust-Debug-ad22153d166fbcce717f.json",
+					"name" : "4-control-thrust",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "4-jacobians::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-4-jacobians-Debug-d860c6c0891324b38e58.json",
+					"name" : "4-jacobians",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "5-adjoint-sensitivities::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-5-adjoint-sensitivities-Debug-cbd26b577280eef87889.json",
+					"name" : "5-adjoint-sensitivities",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "5-primal-debug::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-5-primal-debug-Debug-ac52070cf5ccd865159e.json",
+					"name" : "5-primal-debug",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "6-optimization-climb::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-6-optimization-climb-Debug-908b1fcd04824f79f3dd.json",
+					"name" : "6-optimization-climb",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "7-debug-primal::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-7-debug-primal-Debug-940c5148d6c01d690e49.json",
+					"name" : "7-debug-primal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Debug-35a12105724632d5442c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Debug-73e34120f42986dda81d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "aero::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-aero-Debug-10e899ade9459be72341.json",
+					"name" : "aero",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "aero_adjoint::@b9e608c78a8eeb5e8a7a",
+					"jsonFile" : "target-aero_adjoint-Debug-4ef2d14693b634cc614b.json",
+					"name" : "aero_adjoint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_UAV::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_UAV-Debug-65f3a3512c4ea4a05cc3.json",
+					"name" : "class_UAV",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_aerodynamics-Debug-94d33bc770269eb047e1.json",
+					"name" : "class_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "endurance_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-endurance_example-Debug-45a88fa1a2727d7e5034.json",
+					"name" : "endurance_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "main::@7303a798442b42bb9c75",
+					"jsonFile" : "target-main-Debug-343726cd28bc5fc999bf.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "maneuver_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-maneuver_example-Debug-bc08968bea37255abb6f.json",
+					"name" : "maneuver_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "nfc::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-nfc-Debug-62769c58873fe4d55e0b.json",
+					"name" : "nfc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "simulation_1::@7303a798442b42bb9c75",
+					"jsonFile" : "target-simulation_1-Debug-256b139f04169f89869a.json",
+					"name" : "simulation_1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test0_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test0_aerodynamics-Debug-1aaa7c56efead0a354dc.json",
+					"name" : "test0_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test1_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test1_aerodynamics-Debug-e9092f12a3f9ad95b12d.json",
+					"name" : "test1_aerodynamics",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						4,
+						5,
+						6
+					],
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						13,
+						14
+					]
+				},
+				{
+					"build" : "externals/cppad",
+					"jsonFile" : "directory-externals.cppad-Release-49d1ee7f6f730645d865.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "externals/cppad"
+				},
+				{
+					"build" : "Source",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-Source-Release-93ebefb0dc4084c9ccf4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Source",
+					"targetIndexes" : 
+					[
+						15,
+						22
+					]
+				},
+				{
+					"build" : "Source/adjoint",
+					"jsonFile" : "directory-Source.adjoint-Release-7ba05fc20467c5233c05.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "Source/adjoint",
+					"targetIndexes" : 
+					[
+						16
+					]
+				},
+				{
+					"build" : "main_executables",
+					"jsonFile" : "directory-main_executables-Release-8b7ca59fb03087a36188.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "main_executables",
+					"targetIndexes" : 
+					[
+						19,
+						20,
+						21,
+						23
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-Release-70e4927a02b591d5c1f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						4,
+						6,
+						7,
+						10,
+						17,
+						18,
+						24,
+						25
+					]
+				},
+				{
+					"build" : "adjoint_tests",
+					"jsonFile" : "directory-adjoint_tests-Release-fbbf7b32b7357109cf4a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "adjoint_tests",
+					"targetIndexes" : 
+					[
+						1,
+						3,
+						5,
+						8,
+						9,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					],
+					"name" : "nfc_preliminary",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "0-rotations::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-0-rotations-Release-68955f012a7d04878c76.json",
+					"name" : "0-rotations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "1-Forces_check::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-1-Forces_check-Release-fc4ebacd97e9ed7262ca.json",
+					"name" : "1-Forces_check",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "1-takeoff::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-1-takeoff-Release-26a43eec2747ed1a3db6.json",
+					"name" : "1-takeoff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "2-autodiff_vs_centraldiff::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-2-autodiff_vs_centraldiff-Release-fbd0fa0dc062c64806a3.json",
+					"name" : "2-autodiff_vs_centraldiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "2-climb_const_gamma::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-2-climb_const_gamma-Release-95daac537263ef7f4551.json",
+					"name" : "2-climb_const_gamma",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "3-Primal-Adjoint-run::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-3-Primal-Adjoint-run-Release-b31f084af7974c0587de.json",
+					"name" : "3-Primal-Adjoint-run",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "3-climb-theta_t::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-3-climb-theta_t-Release-73c6d33932a4810142ba.json",
+					"name" : "3-climb-theta_t",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "4-control-thrust::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-4-control-thrust-Release-3c5cc1cf4863a7958d51.json",
+					"name" : "4-control-thrust",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "4-jacobians::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-4-jacobians-Release-6aba2a0f844f08eada5d.json",
+					"name" : "4-jacobians",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "5-adjoint-sensitivities::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-5-adjoint-sensitivities-Release-3c8112e21bf48f29681b.json",
+					"name" : "5-adjoint-sensitivities",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "5-primal-debug::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-5-primal-debug-Release-f97d140f08cc1fcdef67.json",
+					"name" : "5-primal-debug",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "6-optimization-climb::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-6-optimization-climb-Release-13277442d73eabea4936.json",
+					"name" : "6-optimization-climb",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "7-debug-primal::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-7-debug-primal-Release-29e6d33b50cce8ed69c0.json",
+					"name" : "7-debug-primal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Release-35a12105724632d5442c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Release-73e34120f42986dda81d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "aero::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-aero-Release-1723e29db0a3f72c22ae.json",
+					"name" : "aero",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "aero_adjoint::@b9e608c78a8eeb5e8a7a",
+					"jsonFile" : "target-aero_adjoint-Release-2ae85ff4fc8202a87b48.json",
+					"name" : "aero_adjoint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_UAV::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_UAV-Release-11a8d6faef299fc35d2a.json",
+					"name" : "class_UAV",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_aerodynamics-Release-b652e390f5424cc2d3ae.json",
+					"name" : "class_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "endurance_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-endurance_example-Release-e72166c9e1852832aef4.json",
+					"name" : "endurance_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "main::@7303a798442b42bb9c75",
+					"jsonFile" : "target-main-Release-ed1464fc7b1288de80bb.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "maneuver_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-maneuver_example-Release-c2560df9283151ead1f9.json",
+					"name" : "maneuver_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "nfc::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-nfc-Release-7b9d320b37316f641371.json",
+					"name" : "nfc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "simulation_1::@7303a798442b42bb9c75",
+					"jsonFile" : "target-simulation_1-Release-9a9e9938a145a77ccba8.json",
+					"name" : "simulation_1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test0_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test0_aerodynamics-Release-47931dc4bc0341ec83a3.json",
+					"name" : "test0_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test1_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test1_aerodynamics-Release-57a0d6d21ae57d9aa6d5.json",
+					"name" : "test1_aerodynamics",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						4,
+						5,
+						6
+					],
+					"jsonFile" : "directory-.-MinSizeRel-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						13,
+						14
+					]
+				},
+				{
+					"build" : "externals/cppad",
+					"jsonFile" : "directory-externals.cppad-MinSizeRel-49d1ee7f6f730645d865.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "externals/cppad"
+				},
+				{
+					"build" : "Source",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-Source-MinSizeRel-93ebefb0dc4084c9ccf4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Source",
+					"targetIndexes" : 
+					[
+						15,
+						22
+					]
+				},
+				{
+					"build" : "Source/adjoint",
+					"jsonFile" : "directory-Source.adjoint-MinSizeRel-7ba05fc20467c5233c05.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "Source/adjoint",
+					"targetIndexes" : 
+					[
+						16
+					]
+				},
+				{
+					"build" : "main_executables",
+					"jsonFile" : "directory-main_executables-MinSizeRel-8b7ca59fb03087a36188.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "main_executables",
+					"targetIndexes" : 
+					[
+						19,
+						20,
+						21,
+						23
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-MinSizeRel-70e4927a02b591d5c1f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						4,
+						6,
+						7,
+						10,
+						17,
+						18,
+						24,
+						25
+					]
+				},
+				{
+					"build" : "adjoint_tests",
+					"jsonFile" : "directory-adjoint_tests-MinSizeRel-fbbf7b32b7357109cf4a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "adjoint_tests",
+					"targetIndexes" : 
+					[
+						1,
+						3,
+						5,
+						8,
+						9,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					],
+					"name" : "nfc_preliminary",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "0-rotations::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-0-rotations-MinSizeRel-70bebd3c0cd0a85c160a.json",
+					"name" : "0-rotations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "1-Forces_check::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-1-Forces_check-MinSizeRel-ab138ab4156a5acc158d.json",
+					"name" : "1-Forces_check",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "1-takeoff::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-1-takeoff-MinSizeRel-5a6014e876396b1580c1.json",
+					"name" : "1-takeoff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "2-autodiff_vs_centraldiff::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-2-autodiff_vs_centraldiff-MinSizeRel-44c32e59898d3ec5b5aa.json",
+					"name" : "2-autodiff_vs_centraldiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "2-climb_const_gamma::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-2-climb_const_gamma-MinSizeRel-358cacc093bb89462818.json",
+					"name" : "2-climb_const_gamma",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "3-Primal-Adjoint-run::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-3-Primal-Adjoint-run-MinSizeRel-03c6bb6d9e4e5403176f.json",
+					"name" : "3-Primal-Adjoint-run",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "3-climb-theta_t::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-3-climb-theta_t-MinSizeRel-e8766e3ed53baf0caf89.json",
+					"name" : "3-climb-theta_t",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "4-control-thrust::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-4-control-thrust-MinSizeRel-632c29e356669e012fd0.json",
+					"name" : "4-control-thrust",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "4-jacobians::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-4-jacobians-MinSizeRel-347d26e1e064f7c2a8ba.json",
+					"name" : "4-jacobians",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "5-adjoint-sensitivities::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-5-adjoint-sensitivities-MinSizeRel-2dcf5e966f313e8bdc8c.json",
+					"name" : "5-adjoint-sensitivities",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "5-primal-debug::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-5-primal-debug-MinSizeRel-c86d19ac8afebe3cd78d.json",
+					"name" : "5-primal-debug",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "6-optimization-climb::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-6-optimization-climb-MinSizeRel-2fe18cde3d05168b8a89.json",
+					"name" : "6-optimization-climb",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "7-debug-primal::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-7-debug-primal-MinSizeRel-fe3e8371d1f87fdc7d26.json",
+					"name" : "7-debug-primal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-35a12105724632d5442c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-MinSizeRel-73e34120f42986dda81d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "aero::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-aero-MinSizeRel-8935f230d30ac642762c.json",
+					"name" : "aero",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "aero_adjoint::@b9e608c78a8eeb5e8a7a",
+					"jsonFile" : "target-aero_adjoint-MinSizeRel-467c6a5369e4740171ca.json",
+					"name" : "aero_adjoint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_UAV::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_UAV-MinSizeRel-798f218d581937663008.json",
+					"name" : "class_UAV",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_aerodynamics-MinSizeRel-c0fbb99e266331a93173.json",
+					"name" : "class_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "endurance_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-endurance_example-MinSizeRel-c1aff2c2326c81ab551d.json",
+					"name" : "endurance_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "main::@7303a798442b42bb9c75",
+					"jsonFile" : "target-main-MinSizeRel-aa8c9d15eb044e446f21.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "maneuver_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-maneuver_example-MinSizeRel-f9f9cceca42ecbcb27fd.json",
+					"name" : "maneuver_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "nfc::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-nfc-MinSizeRel-07eb4e28574493ba932a.json",
+					"name" : "nfc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "simulation_1::@7303a798442b42bb9c75",
+					"jsonFile" : "target-simulation_1-MinSizeRel-a774338d6e2850bb64df.json",
+					"name" : "simulation_1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test0_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test0_aerodynamics-MinSizeRel-74e2b199510d09107880.json",
+					"name" : "test0_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test1_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test1_aerodynamics-MinSizeRel-9aa7ca39b4b3edadefd6.json",
+					"name" : "test1_aerodynamics",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						4,
+						5,
+						6
+					],
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						13,
+						14
+					]
+				},
+				{
+					"build" : "externals/cppad",
+					"jsonFile" : "directory-externals.cppad-RelWithDebInfo-49d1ee7f6f730645d865.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "externals/cppad"
+				},
+				{
+					"build" : "Source",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-Source-RelWithDebInfo-93ebefb0dc4084c9ccf4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Source",
+					"targetIndexes" : 
+					[
+						15,
+						22
+					]
+				},
+				{
+					"build" : "Source/adjoint",
+					"jsonFile" : "directory-Source.adjoint-RelWithDebInfo-7ba05fc20467c5233c05.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "Source/adjoint",
+					"targetIndexes" : 
+					[
+						16
+					]
+				},
+				{
+					"build" : "main_executables",
+					"jsonFile" : "directory-main_executables-RelWithDebInfo-8b7ca59fb03087a36188.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "main_executables",
+					"targetIndexes" : 
+					[
+						19,
+						20,
+						21,
+						23
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-RelWithDebInfo-70e4927a02b591d5c1f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						4,
+						6,
+						7,
+						10,
+						17,
+						18,
+						24,
+						25
+					]
+				},
+				{
+					"build" : "adjoint_tests",
+					"jsonFile" : "directory-adjoint_tests-RelWithDebInfo-fbbf7b32b7357109cf4a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "adjoint_tests",
+					"targetIndexes" : 
+					[
+						1,
+						3,
+						5,
+						8,
+						9,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					],
+					"name" : "nfc_preliminary",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "0-rotations::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-0-rotations-RelWithDebInfo-185c7af70dc38e1081e6.json",
+					"name" : "0-rotations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "1-Forces_check::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-1-Forces_check-RelWithDebInfo-44743937e4600f62b027.json",
+					"name" : "1-Forces_check",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "1-takeoff::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-1-takeoff-RelWithDebInfo-8cf4f3b809b6bfdd2385.json",
+					"name" : "1-takeoff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "2-autodiff_vs_centraldiff::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-2-autodiff_vs_centraldiff-RelWithDebInfo-8020c3eb169df0adfb61.json",
+					"name" : "2-autodiff_vs_centraldiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "2-climb_const_gamma::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-2-climb_const_gamma-RelWithDebInfo-a1a4eba25edc3712b86d.json",
+					"name" : "2-climb_const_gamma",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "3-Primal-Adjoint-run::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-3-Primal-Adjoint-run-RelWithDebInfo-236d0ce1d97dd7db79ed.json",
+					"name" : "3-Primal-Adjoint-run",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "3-climb-theta_t::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-3-climb-theta_t-RelWithDebInfo-64b41d87b31003fd83d6.json",
+					"name" : "3-climb-theta_t",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "4-control-thrust::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-4-control-thrust-RelWithDebInfo-2b96fdf9d7f633893eef.json",
+					"name" : "4-control-thrust",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "4-jacobians::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-4-jacobians-RelWithDebInfo-b3ffc3b38f3e91df61f0.json",
+					"name" : "4-jacobians",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "5-adjoint-sensitivities::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-5-adjoint-sensitivities-RelWithDebInfo-6991c634907ab5f2ed12.json",
+					"name" : "5-adjoint-sensitivities",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "5-primal-debug::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-5-primal-debug-RelWithDebInfo-ff7cde0dd6a90095010e.json",
+					"name" : "5-primal-debug",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "6-optimization-climb::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-6-optimization-climb-RelWithDebInfo-71ab9071396b99675c67.json",
+					"name" : "6-optimization-climb",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "7-debug-primal::@8fb7fce5d4617fb72231",
+					"jsonFile" : "target-7-debug-primal-RelWithDebInfo-33183a351f7c9002fba3.json",
+					"name" : "7-debug-primal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-35a12105724632d5442c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-RelWithDebInfo-73e34120f42986dda81d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "aero::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-aero-RelWithDebInfo-399b4303ccf99d8d72f8.json",
+					"name" : "aero",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "aero_adjoint::@b9e608c78a8eeb5e8a7a",
+					"jsonFile" : "target-aero_adjoint-RelWithDebInfo-3da3117243b2ab914d0e.json",
+					"name" : "aero_adjoint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_UAV::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_UAV-RelWithDebInfo-9c652f22678685eae574.json",
+					"name" : "class_UAV",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "class_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-class_aerodynamics-RelWithDebInfo-1859b4440ca8217d761d.json",
+					"name" : "class_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "endurance_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-endurance_example-RelWithDebInfo-6b55801de981c215ded9.json",
+					"name" : "endurance_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "main::@7303a798442b42bb9c75",
+					"jsonFile" : "target-main-RelWithDebInfo-6ad5809790d77440b3cc.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "maneuver_example::@7303a798442b42bb9c75",
+					"jsonFile" : "target-maneuver_example-RelWithDebInfo-8d2d56542e719c807607.json",
+					"name" : "maneuver_example",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "nfc::@43690dd2fb94c8e45e84",
+					"jsonFile" : "target-nfc-RelWithDebInfo-58c1696d1e1e10432823.json",
+					"name" : "nfc",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "simulation_1::@7303a798442b42bb9c75",
+					"jsonFile" : "target-simulation_1-RelWithDebInfo-73afb3720949729ff01b.json",
+					"name" : "simulation_1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test0_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test0_aerodynamics-RelWithDebInfo-6bfae09e844b91e3b8b2.json",
+					"name" : "test0_aerodynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "test1_aerodynamics::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test1_aerodynamics-RelWithDebInfo-8f3c7a76233b41ddf9a7.json",
+					"name" : "test1_aerodynamics",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/projects/nfc_preliminary/..build",
+		"source" : "C:/projects/nfc_preliminary"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

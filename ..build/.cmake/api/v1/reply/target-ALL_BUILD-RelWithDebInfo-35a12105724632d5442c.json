@@ -1,0 +1,105 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "maneuver_example::@7303a798442b42bb9c75"
+		},
+		{
+			"id" : "simulation_1::@7303a798442b42bb9c75"
+		},
+		{
+			"id" : "nfc::@43690dd2fb94c8e45e84"
+		},
+		{
+			"id" : "aero_adjoint::@b9e608c78a8eeb5e8a7a"
+		},
+		{
+			"id" : "aero::@43690dd2fb94c8e45e84"
+		},
+		{
+			"id" : "endurance_example::@7303a798442b42bb9c75"
+		},
+		{
+			"id" : "main::@7303a798442b42bb9c75"
+		},
+		{
+			"id" : "0-rotations::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "1-takeoff::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "2-climb_const_gamma::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "3-climb-theta_t::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "4-control-thrust::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "5-primal-debug::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "class_UAV::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "class_aerodynamics::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "test0_aerodynamics::@a44f0ac069e85531cdee"
+		},
+		{
+			"id" : "5-adjoint-sensitivities::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "4-jacobians::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "6-optimization-climb::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "2-autodiff_vs_centraldiff::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "1-Forces_check::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "3-Primal-Adjoint-run::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "7-debug-primal::@8fb7fce5d4617fb72231"
+		},
+		{
+			"id" : "test1_aerodynamics::@a44f0ac069e85531cdee"
+		}
+	],
+	"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

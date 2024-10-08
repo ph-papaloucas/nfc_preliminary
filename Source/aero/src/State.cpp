@@ -76,7 +76,7 @@ void StateHistory::printToCsv(const std::string& filename){
 
     // Check if the file is successfully opened
     if (!file.is_open()) {
-        throw std::runtime_error("Unable to open file: " + filename);
+        //throw std::runtime_error("Unable to open file: " + filename);
     }
 
     // Set the precision for floating-point values

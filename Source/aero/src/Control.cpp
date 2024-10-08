@@ -56,7 +56,7 @@ double Control::_getTheta(std::array<double, 2> velocity, double t, bool apply_g
 
 void Control::_applyControl(ControlState &control_state, std::array<double,2 > velocity, double t, bool apply_ground_effect, double height){
     control_state.theta = _getTheta(velocity, t, apply_ground_effect, height);
-    control_state.thrust = getThrust(Aerodynamics::rotateFromEarth2Bodyframe(velocity, control_state.theta));
+    control_state.thrust = getThrust(utils::rotateFromEarth2Bodyframe(velocity, control_state.theta));
 
 
 }
@@ -66,7 +66,7 @@ std::array<double, 2> Control::getForces(const State &state, ControlState& contr
     _applyControl(control_state, velocity, t, apply_ground_effect, state.z + _uav.getWheelOffset());
 
     std::array<double, 2> u = _aero.getAeroForcesEarthframe(velocity, control_state.theta, apply_ground_effect, state.z + _uav.getWheelOffset());
-    std::array<double, 2> thrust_earthaxis = Aerodynamics::rotateFromBody2Earthframe({control_state.thrust, 0}, -control_state.theta);
+    std::array<double, 2> thrust_earthaxis = utils::rotateFromBody2Earthframe({control_state.thrust, 0}, -control_state.theta);
     u[0] += thrust_earthaxis[0];
     u[1] += thrust_earthaxis[1];
 
