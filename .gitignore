@@ -1,6 +1,4 @@
-build/
-.build/
+.*
 *.csv
-.vscode/
-.vs
 *.ipynb
+pyplot
