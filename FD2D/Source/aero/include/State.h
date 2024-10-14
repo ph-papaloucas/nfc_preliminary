@@ -108,6 +108,12 @@ public:
         return _time.size() - 1;
     }
 
+    void shrinkToFit(){
+        _history.shrink_to_fit();
+        _time.shrink_to_fit();
+        _control_history.shrink_to_fit();
+    }
+
 
 
 private:

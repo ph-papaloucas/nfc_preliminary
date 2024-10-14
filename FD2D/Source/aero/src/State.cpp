@@ -100,6 +100,7 @@ void StateHistory::printToCsv(const std::string& filename){
     }
 
     // Close the file
+
     file.close();
 
 }

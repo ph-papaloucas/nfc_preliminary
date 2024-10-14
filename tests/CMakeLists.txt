@@ -1,4 +1,4 @@
-set(EXECUTABLES_OUTPUT_PATH "${CMAKE_BINARY_DIR}/1-main-exe")
+set(EXECUTABLES_OUTPUT_PATH "${CMAKE_BINARY_DIR}/2-tests")
 file(GLOB executable_files ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
   # Specify include directories
 

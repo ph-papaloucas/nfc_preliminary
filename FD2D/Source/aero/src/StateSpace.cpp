@@ -49,10 +49,6 @@ void StateSpace::solve(Control& control, State& initial_state,ControlState& cont
     while (timestep < _total_timesteps) {
         timestep++;
         //get input
-        if ( (t+_dt > 4.65) && (t+_dt < 4.75) ){
-            std::cout <<"test" << std::endl;
-        }
-        
         u = control.getForces(computed_state, control_state, t + _dt);
 
         if (control.checkTermination(computed_state, u)){
@@ -83,8 +79,6 @@ void StateSpace::solve(Control& control, State& initial_state,ControlState& cont
             std::cout << "altitude is zero. UAV Crashed\n";
             break;
         }
-
-
-
     }
+    state_history.shrinkToFit();
 }

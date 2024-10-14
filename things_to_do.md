@@ -1,0 +1,2 @@
+-flaps retreact on climb
+-moter ??

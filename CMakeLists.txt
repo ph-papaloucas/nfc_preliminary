@@ -6,7 +6,7 @@ project(nfc_preliminary VERSION 0.1.0 LANGUAGES C CXX)
 ## CHANGE THE FOLLOWING AS YOU WANT
 ####################################################################################################
 option(BUILD_EXECUTABLES "Enable the compilation of the adjoint test files." ON) # ON/  OFF
-option(BUILD_TESTS "Enable the compilation of the test files." OFF)                # ON/  OFF
+option(BUILD_TESTS_NFC "Enable the compilation of the test files." ON)                # ON/  OFF
 #### Library subdir
 add_subdirectory(FD2D)
 
@@ -22,9 +22,9 @@ endif()
 
 
 #### Add executables from the "tests" folder
-if (BUILD_TESTS)
+if (BUILD_TESTS_NFC)
   add_subdirectory(${CMAKE_SOURCE_DIR}/tests)
-  message(STATUS "BUILD TEST = ON")
+  message(STATUS "BUILD TEST NFC= ON")
 endif()
 
 

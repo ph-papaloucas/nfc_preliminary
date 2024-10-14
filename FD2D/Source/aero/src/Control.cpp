@@ -5,7 +5,7 @@ Control::Control(const UAV& uav, const EngineMap& engine, double max_amps)
 
     //set control for stuff that need polynomyal
 void Control::setControlMode(ControlMode control_mode, std::array<double, 4> coeffs){
-    if (control_mode != TAKEOFF){
+    if (control_mode == THETA){
         _current_control_mode = control_mode;
         _poly = Poly<double, _n_coeffs>(coeffs);
     }
@@ -15,7 +15,7 @@ void Control::setControlMode(ControlMode control_mode, std::array<double, 4> coe
 };
 //set control for stuff that dont need polynomial
 void Control::setControlMode(ControlMode control_mode){
-    if (control_mode == TAKEOFF)
+    if (control_mode != THETA)
         _current_control_mode = control_mode;
     else{
         throw std::invalid_argument("Invalid control mode set. Use the appropriate setControlMode method which asks for a polynomial");

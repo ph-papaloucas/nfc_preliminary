@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(FD2D VERSION 0.1.0 LANGUAGES C CXX)
-
-
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 ## CHANGE THE FOLLOWING AS YOU WANT
 ####################################################################################################
-option(BUILD_TESTS "Enable the compilation of the test files." OFF)                # ON/  OFF
+option(BUILD_TESTS "Enable the compilation of the test files." ON)                # ON/  OFF
 option(BUILD_ADJOINT_TESTS "Enable the compilation of the adjoint test files." OFF) # ON/  OFF
-set(CMAKE_BUILD_TYPE "Release")
-#set(CMAKE_BUILD_TYPE "Debug")
+#set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 #####################################################################################################
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
