@@ -5,4 +5,4 @@
 0.1  :	aoa_takeoff = in[4];
 1  :	prop = in[5];
 1  :	mass_calc_parameter = in[6];
-0.5:    climb_angle = in[7];
+0.5:    vel_ratio(w/u) = in[7];
